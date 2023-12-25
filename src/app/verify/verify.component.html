@@ -14,7 +14,7 @@
       <p class="text">Your OTP will expire in</p>
       <div style="display: flex; justify-content: center">
         <img class="svg" src="assets/timer.svg" />
-        <p class="text">59</p>
+        <countdown [config]="{leftTime: 60}"></countdown>
       </div>
       <p class="text-2">Resend OTP</p>
       <button class="btn"><span class="btn-text">Continue</span></button>
