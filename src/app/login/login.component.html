@@ -1,5 +1,45 @@
 <div class="overlay-container">
-    <img src="assets/image_2.png" alt="Image" class="img-fluid">
+  <img src="assets/image_2.png" alt="Image" class="img-fluid" />
 
-    
+  <div class="card main overlay-card">
+    <div class="card-body">
+      <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+        <div>
+          <h4 class="heading-text text-center font-weight-bold">
+            Login to SportUp
+          </h4>
+        </div>
+        <div>
+          <p class="fw-400 sub-head text-center">
+            Enter into the world of the largest sports community
+          </p>
+        </div>
+        <div class="form-group mt-4">
+          <div class="mb-5">
+            <label class="label">Mobile Number</label>
+            <input
+              type="number"
+              formControlName="mobileNumber"
+              id=""
+              class="form-control input"
+              placeholder="+91 Enter your mobile number"
+              required
+            />
+            <div
+              *ngIf="
+                myForm.get('mobileNumber')?.invalid &&
+                myForm.get('mobileNumber')?.touched
+              "
+            >
+              <span class="text-danger">Invalid mobile number</span>
+            </div>
+          </div>
+
+          <button type="submit" class="btn w-100" [disabled]="!myForm.valid">
+            <span class="btn-text">CONTINUE</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>

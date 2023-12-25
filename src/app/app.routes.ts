@@ -6,6 +6,7 @@ import { EnterdetailComponent } from './enterdetail/enterdetail.component';
 import { ProfileComponent } from './profile/profile.component';
 import { HomeComponent } from './home/home.component';
 import { VerifyComponent } from './verify/verify.component';
+import { CongratulationComponent } from './congratulation/congratulation.component';
 
 export const routes: Routes = [
   { path: '', component: MainComponent },
@@ -13,8 +14,12 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'enterdetail', component: EnterdetailComponent },
+<<<<<<< HEAD
   { path: 'home', component: HomeComponent },
   { path: 'verify', component: VerifyComponent },
+=======
+  {path:'congratulation',component:CongratulationComponent}
+>>>>>>> kalyani
 ];
 
 export const AppRoutingModule = RouterModule.forRoot(routes);
