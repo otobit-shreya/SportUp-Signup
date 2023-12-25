@@ -20,9 +20,10 @@
             <input
               type="number"
               formControlName="mobileNumber"
-              id=""
+              id="number"
               class="form-control input"
               placeholder="+91 Enter your mobile number"
+              onKeyPress="if(this.value.length==10) return false;"
               required
             />
             <div
@@ -35,7 +36,7 @@
             </div>
           </div>
 
-          <button type="submit" class="btn w-100" [disabled]="!myForm.valid">
+          <button type="submit" class="btn w-100" routerLink="/verify" [disabled]="!myForm.valid">
             <span class="btn-text">CONTINUE</span>
           </button>
         </div>
