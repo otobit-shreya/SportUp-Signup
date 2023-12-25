@@ -22,6 +22,8 @@ img {
 .heading-text{
     font-family: Roboto;
     font-size: 20px;
+    color: var(--text-colour, #424753);
+
 }
 
 .sub-head{
@@ -29,14 +31,34 @@ img {
     font-size: 14px;
     line-height: 20px;
 }
-.label{
-    font-weight: 500;
+.downloads{
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    border-radius: 10px;
+    border: 1px solid var(--muted-color, #BDBDBD);
+    background: var(--light-background-color, #FFF);
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.10);
+}
+.icon-text h6{
+    margin-bottom: 0;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px; /* 171.429% */
+    letter-spacing: 0.2px;
+}
+.icon-text span{
+    font-family: Montserrat;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 30px; /* 150% */
+    letter-spacing: 0.2px;
 }
 
-.input{
-    border-radius: 10px;
-    border: 1px solid rgba(0, 0, 0, 0.40);
-}
 .btn {
     margin-top: 10px;
     display: flex;
@@ -57,4 +79,9 @@ img {
     font-weight: 700;
     line-height: normal;
     text-transform: uppercase;
+}
+
+
+.downloads{
+    width: 250px;
 }
