@@ -1,0 +1,17 @@
+.overlay-container {
+    position: relative;
+}
+
+.overlay-card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 400px;
+    width: 90%; /* Adjust as needed */
+}
+
+img {
+    width: 100%;
+    height: auto;
+}

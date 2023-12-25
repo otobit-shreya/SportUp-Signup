@@ -7,7 +7,7 @@ import { EnterdetailComponent } from './enterdetail/enterdetail.component';
 export const routes: Routes = [
   { path: '', component: MainComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'login', component: SignupComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'enterdetail', component: EnterdetailComponent },
 ];
 
