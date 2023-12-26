@@ -10,7 +10,7 @@ import { CongratulationComponent } from './congratulation/congratulation.compone
 
 export const routes: Routes = [
   { path: '', component: MainComponent },
-  { path: 'signup', component: SignupComponent },
+  { path: 'signup', component: LoginComponent },
   { path: 'login', component: LoginComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'enterdetail', component: EnterdetailComponent },
