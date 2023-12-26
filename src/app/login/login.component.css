@@ -35,7 +35,7 @@ img {
 
 .input{
     border-radius: 10px;
-    border: 1px solid rgba(0, 0, 0, 0.40);
+    
 }
 .btn {
     margin-top: 10px;
@@ -57,4 +57,13 @@ img {
     font-weight: 700;
     line-height: normal;
     text-transform: uppercase;
+}
+
+.country-dropdown {
+    width: 335px;
+}
+
+.form-control input:focus{
+    box-shadow: none !important;
+    outline: none !important;
 }

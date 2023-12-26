@@ -14,10 +14,11 @@
             Enter into the world of the largest sports community
           </p>
         </div>
+
         <div class="form-group mt-4">
           <div class="mb-5">
             <label class="label">Mobile Number</label>
-            <input
+            <!-- <input
               type="number"
               formControlName="mobileNumber"
               id="number"
@@ -25,18 +26,38 @@
               placeholder="+91 Enter your mobile number"
               onKeyPress="if(this.value.length==10) return false;"
               required
-            />
+            /> -->
+            <ngx-intl-tel-input
+            [preferredCountries]="preferredCountries"
+            [enableAutoCountrySelect]="true"
+            [enablePlaceholder]="true"
+            [searchCountryFlag]="true"
+            [searchCountryField]="[
+              SearchCountryField.Iso2,
+              SearchCountryField.Name
+            ]"
+            [selectFirstCountry]="false"
+            [selectedCountryISO]="CountryISO.India"
+            [maxLength]="15"
+            [phoneValidation]="true"
+            [separateDialCode]="separateDialCode"
+            [numberFormat]="PhoneNumberFormat.National"
+            name="phone"
+            formControlName="phone"
+            class="form-control input"
+          >
+          </ngx-intl-tel-input>
             <div
               *ngIf="
-                myForm.get('mobileNumber')?.invalid &&
-                myForm.get('mobileNumber')?.touched
+                myForm.get('phone')?.invalid &&
+                myForm.get('phone')?.touched
               "
             >
               <span class="text-danger">Invalid mobile number</span>
             </div>
           </div>
 
-          <button type="submit" class="btn w-100" routerLink="/verify" [disabled]="!myForm.valid">
+          <button type="submit" class="btn w-100" routerLink="/verify">
             <span class="btn-text">CONTINUE</span>
           </button>
         </div>
