@@ -6,7 +6,7 @@
       <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
         <div>
           <h4 class="heading-text text-center font-weight-bold">
-            Login to SportUp
+            {{params === 'login'? 'Login':'Signup'}} to SportUp
           </h4>
         </div>
         <div>

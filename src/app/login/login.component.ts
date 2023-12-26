@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule  } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,13 +12,17 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule  } from '@angul
 })
 export class LoginComponent implements OnInit{
   myForm: FormGroup = new FormGroup({});
+  params!:any;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private router: Router) {}
 
   ngOnInit(): void {
     this.myForm = this.formBuilder.group({
       mobileNumber: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
     });
+
+    this.params = this.router.url.slice(1);
+    
   }
 
   onSubmit() {
