@@ -1,5 +1,5 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, Inject, Injectable, OnInit, PLATFORM_ID, Renderer2 } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, ElementRef, Inject, Injectable, OnInit, Renderer2 } from '@angular/core';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule  } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit{
   myForm: FormGroup = new FormGroup({});
   params!:any;
 
-  constructor(@Inject(DOCUMENT) private document: Document,private formBuilder: FormBuilder, private router: Router, private renderer: Renderer2) {}
+  constructor(@Inject(DOCUMENT) private document: Document,private el: ElementRef,private formBuilder: FormBuilder, private router: Router, private renderer: Renderer2) {}
 
   ngOnInit(): void {
     this.myForm = this.formBuilder.group({
@@ -34,10 +34,10 @@ export class LoginComponent implements OnInit{
     this.renderer.setStyle(inputEle,'boxShadow', 'none');
 
     // (document.querySelector('.form-control .show')as HTMLElement).style.width = '330px';
-    (this.document.querySelector('.form-control >div>div >div:nth-of-type(2)')as HTMLElement).style.width = '335px';
 
 
   }
+  
   
 
   onSubmit() {
