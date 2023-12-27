@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit{
     this.params = this.router.url.slice(1);
     const inputEle = (this.document.querySelector('.form-control input') as HTMLElement);
     this.renderer.setStyle(inputEle, 'border' , 'none');
-    this.renderer.setStyle(inputEle,'width' , '330px');
+    // this.renderer.setStyle(inputEle,'width' , '330px');
     this.renderer.setStyle(inputEle,'boxShadow', 'none');
 
     // (document.querySelector('.form-control .show')as HTMLElement).style.width = '330px';
