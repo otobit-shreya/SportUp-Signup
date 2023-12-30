@@ -1,3 +1,22 @@
+.overlay-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 400px;
+  width: 90%; /* Adjust as needed */
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.80);
+}
+.overlay-container {
+  position: relative;
+  height: 100%;
+}
+img {
+  width: 100%;
+  height: 100%;
+}
+
 .main-div {
   width: 100%;
   overflow: hidden;
@@ -54,7 +73,7 @@
   cursor: pointer;
 }
 
-.btn:hover {
+/* .btn:hover {
   background-color: #fdee00      ;
 }
 
@@ -62,7 +81,7 @@
   background-color: #fdee00       ;
   box-shadow: 0 5px #666;
   transform: translateY(4px);
-}
+} */
 
 .btn-text {
   color: var(--text-colour, #424753);

@@ -3,38 +3,38 @@
 
     <div class="card main overlay-card">
         <div class="card-body">
-            <form>
+            <form #userForm="ngForm" (ngSubmit)="goToProfile()">
                 <div class="text-center">
                     <h4 class="heading-text font-weight-bold">Enter your basic details</h4>
                 </div>
                 <div class="form-group mt-4">
                     <label class="label">Full Name</label>
-                    <input type="text" id=""  class="form-control input"
+                    <input type="text" name="fullName" ngModel required class="form-control input"
                         placeholder="Full Name" />
-                    <div class="mt-2">
-                        <label class="label">User Name</label>
-                        <input type="text" id=""  class="form-control input"
-                            placeholder="User Name" />
-                    </div>
-                    <div class="mt-2">
-                        <label class="label">Date of birth</label>
-                        <input type="date" id="birthday" name="birthday" class="form-control input">
-                    </div>
-                    <div class="mt-2">
-                        <label class="label">Gender</label>
-                        <select name="Gender" id="Gender" class="form-control input">
-                            <option value="Female">Female</option>
-                            <option value="Male">Male</option>
-                        </select>
-                    </div>
-                    <div class="mt-2">
-                        <label class="label">Email Address</label>(Optional)
-                        <input type="text" id="email" name="email" class="form-control input">
-                    </div>
-                    <button type="submit" class="btn mt-4 btn-block" (click)="goToProfile()">
-                        <span class="btn-text">CONTINUE</span>
-                    </button>
                 </div>
+                <div class="mt-2">
+                    <label class="label">User Name</label>
+                    <input type="text" name="userName" ngModel required class="form-control input"
+                        placeholder="User Name" />
+                </div>
+                <div class="mt-2">
+                    <label class="label">Date of birth</label>
+                    <input type="date" name="birthday" required ngModel class="form-control input">
+                </div>
+                <div class="mt-2">
+                    <label class="label">Gender</label>
+                    <select name="gender" required ngModel class="form-control input">
+                        <option value="Female">Female</option>
+                        <option value="Male">Male</option>
+                    </select>
+                </div>
+                <div class="mt-2">
+                    <label class="label">Email Address</label>(Optional)
+                    <input type="text" name="email" ngModel class="form-control input">
+                </div>
+                <button type="submit" class="btn mt-4 btn-block" [disabled]="userForm.invalid">
+                    <span class="btn-text">CONTINUE</span>
+                </button>
             </form>
         </div>
     </div>

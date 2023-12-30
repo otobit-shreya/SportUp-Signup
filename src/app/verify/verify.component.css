@@ -59,7 +59,7 @@
   text-transform: uppercase;
 }
 
-.btn:hover {
+/* .btn:hover {
   background-color: #fdee00;
 }
 
@@ -67,7 +67,7 @@
   background-color: #fdee00;
   box-shadow: 0 5px #666;
   transform: translateY(4px);
-}
+} */
 
 
 
@@ -78,6 +78,7 @@
   align-items: center;
   gap: 10px;
   align-self: stretch;
+  background-color: transparent;
   border-radius: 10px;
   border: 1px solid rgba(0, 0, 0, 0.4);
 }

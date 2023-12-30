@@ -14,7 +14,11 @@
     border-radius: 15px;
     background: rgba(255, 255, 255, 0.80);
 }
-
+.input{
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.40);
+    background-color: transparent;
+}
 img {
     width: 100%;
     height: 100%;
@@ -23,23 +27,13 @@ img {
 .heading-text {
     font-family: Roboto;
     font-size: 20px;
-}
+    color: var(--text-colour, #424753);
 
+}
 .sub-head {
     font-family: Roboto;
     font-size: 14px;
     line-height: 20px;
-}
-
-.label {
-    font-weight: 500;
-}
-
-.input {
-    border-radius: 10px;
-    border: 1px solid rgba(0, 0, 0, 0.40);
-    background-color: transparent;
-
 }
 
 .btn {
@@ -64,11 +58,18 @@ img {
     text-transform: uppercase;
 }
 
-.country-dropdown {
-    width: 335px;
+.profile {
+    width: 55px;
+    border-radius: 5px;
+    border: 1px solid #424753;
+
 }
 
-.form-control input:focus {
-    box-shadow: none !important;
-    outline: none !important;
+.name {
+    color: var(--181717, #181717);
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    margin-bottom: 0 !important;
 }

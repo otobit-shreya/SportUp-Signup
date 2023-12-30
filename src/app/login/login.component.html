@@ -6,7 +6,7 @@
       <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
         <div>
           <h4 class="heading-text text-center font-weight-bold">
-            {{params === 'login'? 'Login':'Signup'}} to SportUp
+            {{ params === "login" ? "Login" : "Signup" }} to SportUp
           </h4>
         </div>
         <div>
@@ -28,38 +28,47 @@
               required
             /> -->
             <ngx-intl-tel-input
-            [preferredCountries]="preferredCountries"
-            [enableAutoCountrySelect]="true"
-            [enablePlaceholder]="true"
-            [searchCountryFlag]="true"
-            [searchCountryField]="[
-              SearchCountryField.Iso2,
-              SearchCountryField.Name
-            ]"
-            [selectFirstCountry]="false"
-            [selectedCountryISO]="CountryISO.India"
-            [maxLength]="15"
-            [phoneValidation]="true"
-            [separateDialCode]="separateDialCode"
-            [numberFormat]="PhoneNumberFormat.National"
-            name="phone"
-            formControlName="phone"
-            class="form-control input"
-          >
-          </ngx-intl-tel-input>
+              [preferredCountries]="preferredCountries"
+              [enableAutoCountrySelect]="true"
+              [enablePlaceholder]="true"
+              [searchCountryFlag]="true"
+              [searchCountryField]="[
+                SearchCountryField.Iso2,
+                SearchCountryField.Name
+              ]"
+              [selectFirstCountry]="false"
+              [maxLength]="10"
+              [selectedCountryISO]="CountryISO.India"
+              [separateDialCode]="separateDialCode"
+              [numberFormat]="PhoneNumberFormat.National"
+              name="phone"
+              formControlName="phone"
+              class="form-control input"
+            >
+            </ngx-intl-tel-input>
             <div
               *ngIf="
-                myForm.get('phone')?.invalid &&
-                myForm.get('phone')?.touched
+                myForm.get('phone')?.invalid && myForm.get('phone')?.touched
               "
             >
               <span class="text-danger">Invalid mobile number</span>
             </div>
           </div>
 
-          <button type="submit" class="btn w-100" routerLink="/verify">
+          <button
+            type="submit"
+            class="btn w-100"
+            [disabled]="!myForm.get('phone')?.value || myForm.invalid"
+          >
             <span class="btn-text">CONTINUE</span>
           </button>
+
+          <!-- Display error message -->
+          <div *ngIf="myForm.invalid && myForm.touched">
+            <span class="text-danger"
+              >Please fill out the required fields.</span
+            >
+          </div>
         </div>
       </form>
     </div>
