@@ -9,13 +9,14 @@ import { VerifyComponent } from './verify/verify.component';
 import { CongratulationComponent } from './congratulation/congratulation.component';
 
 export const routes: Routes = [
-  { path: '', component: MainComponent },
+  { path: '', pathMatch: 'full', redirectTo: 'home' },
+  { path: 'home', component: HomeComponent },
   { path: 'signup', component: LoginComponent },
   { path: 'login', component: LoginComponent },
   { path: 'profile', component: ProfileComponent },
-  { path: 'enterdetail', component: EnterdetailComponent },
-  { path: 'home', component: HomeComponent },
+  { path: 'detail', component: EnterdetailComponent },
   { path: 'verify', component: VerifyComponent },
+  { path: 'enterdetail', component: MainComponent },
   {path:'congratulation',component:CongratulationComponent}
 ];
 
