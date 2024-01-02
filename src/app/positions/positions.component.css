@@ -1,0 +1,45 @@
+.overlay-card{
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.80);
+    max-width: 450px;
+}
+.input{
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.40);
+    background-color: transparent;
+}
+.heading-text{
+    color:  #424753;
+    font-family: Roboto;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+mat-chip-option{
+    background-color: transparent !important;
+    width: 90%;
+    border-radius: 10px;
+    border: 1px solid #818181;
+    display: flex;
+    padding: 5px 10px;
+    align-items: center;
+    gap: 10px;
+    align-self: stretch;
+    display: flex;
+    margin-bottom: 10px !important;
+}
+label{
+    color:#424753;
+    font-family: Roboto;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 0;
+}
+.icons{
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}

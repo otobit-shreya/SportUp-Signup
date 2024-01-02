@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -19,7 +19,7 @@ import { ContactService } from '../service/contact.service';
   styleUrl: './main.component.css',
   providers: [ApiService],
 })
-export class MainComponent {
+export class MainComponent implements OnInit {
   myForm: FormGroup;
 
   constructor(
@@ -40,7 +40,15 @@ export class MainComponent {
     });
   }
 
-  
+  ngOnInit(): void {
+      this.http.get('https://sportupapi.otobit.com/api/CommonFixedLookup/GetByType/GenderType').subscribe(res=>{
+        console.log(res, 'get gender');
+        
+      }, error=>{
+        console.log('Error');
+        
+      })
+  }
 
   goToProfile() {
     // if (this.myForm.invalid) {
