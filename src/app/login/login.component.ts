@@ -1,59 +1,75 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, Inject, Injectable, OnInit, Renderer2 } from '@angular/core';
-import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule  } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
-import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
-import { DOCUMENT } from '@angular/common';
-
+import { Component, OnInit } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { Params, Router, RouterLink } from '@angular/router';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ApiService } from '../service/api.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule,ReactiveFormsModule,RouterLink, NgxIntlTelInputModule],
+  imports: [CommonModule, HttpClientModule, ReactiveFormsModule, RouterLink],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrl: './login.component.css',
+  providers: [ApiService],
 })
-
-@Injectable()
-export class LoginComponent implements OnInit{
+export class LoginComponent implements OnInit {
   myForm: FormGroup = new FormGroup({});
-  params!:any;
+  params!: any;
 
-  constructor(@Inject(DOCUMENT) private document: Document,private el: ElementRef,private formBuilder: FormBuilder, private router: Router, private renderer: Renderer2) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private apiService: ApiService
+  ) {}
 
   ngOnInit(): void {
     this.myForm = this.formBuilder.group({
-      phone: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
+      mobileNumber: [
+        '',
+        [Validators.required, Validators.pattern('^[0-9]{10}$')],
+      ],
     });
 
     this.params = this.router.url.slice(1);
-    const inputEle = (this.document.querySelector('.form-control input') as HTMLElement);
-    this.renderer.setStyle(inputEle, 'border' , 'none');
-    this.renderer.setStyle(inputEle,'backgroundColor' , 'transparent');
-    this.renderer.setStyle(inputEle,'boxShadow', 'none');
-
-    // (document.querySelector('.form-control .show')as HTMLElement).style.width = '330px';
-
-
   }
   
   
 
   onSubmit() {
+    const apiUrl = 'api/Player/sign-up/request-otp';
+
     if (this.myForm.valid) {
-      // Process form submission
+      const mobileNumberControl = this.myForm.get('mobileNumber');
+      if (mobileNumberControl) {
+        const mobileNumber = mobileNumberControl.value;
+        let obj = JSON.stringify(mobileNumber);
+        const phone = {
+          otp: 'string',
+          contactNumber: obj,
+        };
+        this.apiService.post(apiUrl, phone).subscribe(
+          (response: any) => {
+            console.log('API response:', response);
+
+            this.apiService.sendNumber(phone.contactNumber);
+            // Handle successful response, maybe navigate to the verification page
+            this.router.navigate(['/verify']);
+          },
+          (error) => {
+            // Handle API error response
+            console.error('API error:', error);
+          }
+        );
+      }
+    } else {
+      // Handle form validation errors
+      console.error('Form validation error');
     }
   }
-
-  separateDialCode = false;
-	SearchCountryField = SearchCountryField;
-	CountryISO = CountryISO;
-  PhoneNumberFormat = PhoneNumberFormat;
-	preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
-	
-
-	changePreferredCountries() {
-		this.preferredCountries = [CountryISO.India, CountryISO.Canada];
-	}
 }

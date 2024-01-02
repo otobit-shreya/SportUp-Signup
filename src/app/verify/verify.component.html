@@ -4,39 +4,27 @@
       <p class="heading">Verify your mobile number</p>
       <p class="text">
         Please enter the 4 digits code sent to<br /><span
-          ><b> +917096036250</b></span
+          ><b> {{ phoneNumber }}</b></span
         >
         through SMS
       </p>
-      <form class="form-group" [formGroup]="otpForm" (ngSubmit)="onSubmit()">
+      <form class="form-group">
         <input
           placeholder="Enter OTP"
           class="form-control input"
-          formControlName="otp"
-          maxlength="6"
+          [(ngModel)]="otpInput"
+          [ngModelOptions]="{ standalone: true }"
         />
-        
       </form>
       <p class="text">Your OTP will expire in</p>
       <div style="display: flex; justify-content: center">
         <img class="svg" src="assets/timer.svg" />
-        <countdown [config]="{ leftTime: 60 }"></countdown>
-        <span></span>
+        <countdown [config]="{ leftTime: 60}"></countdown>
       </div>
-      <p class="text-2">Resend OTP</p>
-      <div class="text-center">
-        <button
-          class="btn"
-          routerLink="/details"
-          [disabled]="
-            otpForm.get('otp')?.value === null ||
-            otpForm.get('otp')?.value === '' ||
-            otpForm.get('otp')?.value.length !== 6
-          "
-        >
-          <span class="btn-text">Continue</span>
-        </button>
-      </div>
+      <p class="text-2" >Resend OTP</p>
+      <button class="btn" (click)="continueClicked()">
+        <span class="btn-text">Continue</span>
+      </button>
     </div>
   </div>
 </div>
