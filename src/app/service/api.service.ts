@@ -39,20 +39,19 @@ export class ApiService {
     return throwError(error);
   }
 
-  
-
   sendNumber(number: string) {
-    console.log(number);
-    
-      this.subject.next({ text: number });
+    this.subject.next({ text: number });
   }
 
   clearNumber() {
-      this.subject.next('');
+    this.subject.next('');
   }
 
   getNumber(): Observable<any> {
-      return this.subject.asObservable();
+    return this.subject.asObservable();
   }
 
+  sendData(formdata: any) {
+    console.log(formdata, 'api service data');
+  }
 }

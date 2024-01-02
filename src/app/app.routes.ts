@@ -11,21 +11,14 @@ import { SelectionComponent } from './selection/selection.component';
 import { EnterdetailComponent } from './enterdetail/enterdetail.component';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'signup', component: LoginComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'selection', component: SelectionComponent },
-  {path:'details',component:MainComponent},
-  { path: 'home', component: HomeComponent },
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: 'home', component: HomeComponent },
   { path: 'signup', component: LoginComponent },
   { path: 'login', component: LoginComponent },
   { path: 'profile', component: ProfileComponent },
-  { path: 'detail', component: EnterdetailComponent },
   { path: 'verify', component: VerifyComponent },
-  { path: 'enterdetail', component: MainComponent },
+  { path: 'selection', component: SelectionComponent },
+  {path:'details',component:MainComponent},
   {path:'congratulation',component:CongratulationComponent}
 ];
 

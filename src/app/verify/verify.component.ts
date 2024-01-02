@@ -12,6 +12,7 @@ import { Observable, Subscription, interval, take } from 'rxjs';
 import { CountdownModule } from 'ngx-countdown';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ContactService } from '../service/contact.service';
 @Component({
   selector: 'app-verify',
   standalone: true,
@@ -26,14 +27,16 @@ export class VerifyComponent implements OnInit, OnDestroy {
   phoneNumber: string | null = null;
   number: any[] = [];
   subscription: Subscription;
+  isUser!:boolean;
 
   constructor(
-    private apiService: ApiService,
+    private _apiService: ApiService,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private _cs: ContactService
   ) {
     // subscribe to home component messages
-    this.subscription = this.apiService.getNumber().subscribe((number) => {
+    this.subscription = this._apiService.getNumber().subscribe((number) => {
       console.log(number);
       if (number) {
         this.number.push(number);
@@ -52,22 +55,27 @@ export class VerifyComponent implements OnInit, OnDestroy {
   }
 
   continueClicked() {
+    const contactNumber = this._cs.conatctval;
     const apiUrl = 'api/Player/sign-up/verify-otp';
-    console.log('Continue button clicked');
-    console.log('Entered OTP:', this.otpInput);
-    const mobileNumber = 1111111111;
-    let obj = JSON.stringify(mobileNumber);
-    const phone = {
+    const obj = {
       otp: 'string',
-      contactNumber: obj,
+      contactNumber: contactNumber,
     };
-    this.apiService.post(apiUrl, phone).subscribe(
-      (response: any) => {
-        console.log('API response:', response);    
+    console.log(obj, 'obj');
+    this._apiService.post(apiUrl, obj).subscribe(
+      (res) => {
+        alert('Data Submitted Successfully!')
+        this.isUser = res.body.data.hasPlayer;
+        if(this.isUser === true){
+          this.router.navigate(['/selection'])
+        }
+        else if(this.isUser === false){
+          this.router.navigate(['/details'])
+        }
+        
       },
       (error) => {
-        // Handle API error response
-        console.error('API error:', error);
+        console.log(error, 'Error in submitting form');
       }
     );
   }
