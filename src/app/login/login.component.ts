@@ -9,11 +9,16 @@ import {
 import { Params, Router, RouterLink } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ApiService } from '../service/api.service';
+import {  ElementRef, Inject, Injectable,  Renderer2 } from '@angular/core';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
+import { DOCUMENT } from '@angular/common';
+
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, HttpClientModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, HttpClientModule, ReactiveFormsModule, RouterLink,NgxIntlTelInputModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
   providers: [ApiService],
@@ -25,7 +30,10 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private apiService: ApiService
+    private apiService: ApiService,
+    @Inject(DOCUMENT) private document: Document,
+    private el: ElementRef, 
+    private renderer: Renderer2
   ) {}
 
   ngOnInit(): void {
@@ -37,21 +45,29 @@ export class LoginComponent implements OnInit {
     });
 
     this.params = this.router.url.slice(1);
+    const inputEle = (this.document.querySelector('.form-control input') as HTMLElement);
+    this.renderer.setStyle(inputEle, 'border' , 'none');
+    this.renderer.setStyle(inputEle,'backgroundColor' , 'transparent');
+    this.renderer.setStyle(inputEle,'boxShadow', 'none');
   }
   
   
 
   onSubmit() {
+    console.log(this.myForm, 'fff');
+    
     const apiUrl = 'api/Player/sign-up/request-otp';
 
-    if (this.myForm.valid) {
-      const mobileNumberControl = this.myForm.get('mobileNumber');
+    // if (this.myForm.valid) {
+      
+    const mobileNumberControl = this.myForm.getRawValue().mobileNumber.number;
+
       if (mobileNumberControl) {
-        const mobileNumber = mobileNumberControl.value;
-        let obj = JSON.stringify(mobileNumber);
+       
+        // let obj = JSON.stringify(mobileNumberControl);
         const phone = {
           otp: 'string',
-          contactNumber: obj,
+          contactNumber: mobileNumberControl,
         };
         this.apiService.post(apiUrl, phone).subscribe(
           (response: any) => {
@@ -67,9 +83,22 @@ export class LoginComponent implements OnInit {
           }
         );
       }
-    } else {
-      // Handle form validation errors
-      console.error('Form validation error');
-    }
+    // } else {
+    //   // Handle form validation errors
+    //   console.error('Form validation error');
+    // }
   }
+
+
+
+  separateDialCode = false;
+	SearchCountryField = SearchCountryField;
+	CountryISO = CountryISO;
+  PhoneNumberFormat = PhoneNumberFormat;
+	preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
+	
+
+	changePreferredCountries() {
+		this.preferredCountries = [CountryISO.India, CountryISO.Canada];
+	}
 }
