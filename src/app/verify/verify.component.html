@@ -3,7 +3,7 @@
     <div>
       <p class="heading">Verify your mobile number</p>
       <p class="text">
-        Please enter the 4 digits code sent to<br /><span
+        Please enter the 6 digits code sent to<br /><span
           ><b> {{dialNum}}{{ phoneNumber }}</b></span
         >
         through SMS
@@ -19,10 +19,10 @@
       <p class="text">Your OTP will expire in</p>
       <div style="display: flex; justify-content: center">
         <img class="svg" src="assets/timer.svg" />
-        <countdown [config]="{ leftTime: 60}"></countdown>
+        <countdown #countdown [config]="countdownConfig" (event)="handleCountdownEvents($event)"></countdown>
       </div>
       <p class="text-3">{{verificationResult}}</p>
-      <p class="text-2" >Resend OTP</p>
+      <p class="text-2" *ngIf="resend" (click)="resendClicked()" >Resend OTP</p>
       <button class="btn" (click)="continueClicked()">
         <span class="btn-text">Continue</span>
       </button>

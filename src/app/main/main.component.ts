@@ -62,7 +62,7 @@ export class MainComponent implements OnInit {
       emailAddress: this.myForm.getRawValue().emailAddress,
       gender: {
         id: Number(this.myForm.getRawValue().gender),
-        text: (Number(this.myForm.getRawValue().gender) === 1) ? 'Male' : 'Female',
+        text: "string",
       },
       phoneNumber: this.phoneNumber,
     };
