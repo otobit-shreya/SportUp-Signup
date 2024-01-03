@@ -4,9 +4,14 @@ import { Injectable } from "@angular/core";
  
 export class ContactService {
   conatctval!: number;
+  sendp!:any;
  
   
   getnumber(conatct: number) {
     this.conatctval = conatct;   
+  }
+
+  getotp(otp:number){
+    this.sendp=otp
   }
 }

@@ -22,12 +22,12 @@ import { ContactService } from '../service/contact.service';
   providers: [ApiService],
   changeDetection: ChangeDetectionStrategy.Default,
 })
-export class VerifyComponent implements OnInit, OnDestroy {
+export class VerifyComponent implements OnInit {
   otpInput = '';
-  phoneNumber: string | null = null;
-  number: any[] = [];
-  subscription: Subscription;
+  phoneNumber: any='';
+  sendtp: any='';
   isUser!:boolean;
+  verificationResult:any='';
 
   constructor(
     private _apiService: ApiService,
@@ -35,36 +35,29 @@ export class VerifyComponent implements OnInit, OnDestroy {
     private cdr: ChangeDetectorRef,
     private _cs: ContactService
   ) {
-    // subscribe to home component messages
-    this.subscription = this._apiService.getNumber().subscribe((number) => {
-      console.log(number);
-      if (number) {
-        this.number.push(number);
-      } else {
-        // clear messages when empty message received
-        this.number = [];
-      }
-    });
+    this.phoneNumber = this._cs.conatctval;
+    this.sendtp = this._cs.sendp;
+
   }
 
   ngOnInit() {}
 
-  ngOnDestroy() {
-    // unsubscribe to ensure no memory leaks
-    this.subscription.unsubscribe();
-  }
+  
 
   continueClicked() {
-    const contactNumber = this._cs.conatctval;
+    console.log(this._cs.conatctval)
+    console.log(this._cs.sendp)
     const apiUrl = 'api/Player/sign-up/verify-otp';
     const obj = {
-      otp: 'string',
-      contactNumber: contactNumber,
+      otp: this.sendtp,
+      contactNumber: this.phoneNumber,
     };
     console.log(obj, 'obj');
     this._apiService.post(apiUrl, obj).subscribe(
       (res) => {
-        alert('Data Submitted Successfully!')
+         console.log(res)
+        if (this.sendtp === this.otpInput) {
+          this.verificationResult = 'OTP verified successfully';       
         this.isUser = res.body.data.hasPlayer;
         if(this.isUser === true){
           this.router.navigate(['/selection'])
@@ -72,6 +65,10 @@ export class VerifyComponent implements OnInit, OnDestroy {
         else if(this.isUser === false){
           this.router.navigate(['/details'])
         }
+      }
+      else{
+        this.verificationResult = 'OTP verification failed';
+      }
         
       },
       (error) => {
@@ -79,4 +76,26 @@ export class VerifyComponent implements OnInit, OnDestroy {
       }
     );
   }
+
+  // resendClicked(){  
+  //   const apiUrl = 'api/Player/sign-up/resend-otp';   
+  //       const phone = {
+  //         otp: 'string',
+  //         contactNumber: this.phoneNumber,
+  //       };
+
+  //       this._apiService.post(apiUrl, phone).subscribe(
+  //         (response: any) => {
+  //           console.log('API response:', response);
+
+  //           this._cs.getotp(response.body.data);
+  //           // Handle successful response, maybe navigate to the verification page
+  //           this.router.navigate(['/verify']);
+  //         },
+  //         (error) => {
+  //           // Handle API error response
+  //           console.error('API error:', error);
+  //         }
+  //       );      
+  //   }
 }

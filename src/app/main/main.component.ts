@@ -21,6 +21,7 @@ import { ContactService } from '../service/contact.service';
 })
 export class MainComponent implements OnInit {
   myForm: FormGroup;
+  phoneNumber: any='';
 
   constructor(
     private router: Router,
@@ -33,11 +34,12 @@ export class MainComponent implements OnInit {
     // Initialize the form in the constructor
     this.myForm = this.formBuilder.group({
       fullName: ['', Validators.required],
-      userHandle: ['', Validators.required],
+      userHandle: [''],
       dob: ['', Validators.required],
       gender: ['', Validators.required],
       emailAddress: [''],
     });
+    this.phoneNumber = this._cs.conatctval;
   }
 
   ngOnInit(): void {
@@ -51,11 +53,8 @@ export class MainComponent implements OnInit {
   }
 
   goToProfile() {
-    // if (this.myForm.invalid) {
-    //   return;
-    // }
-    const contactNumber = this._cs.conatctval;
-    const apiUrl = 'api/Player/sign-up';
+  
+    const apiUrl = 'api/Player/sign-up-v2';
     const formData = {
       fullName: this.myForm.getRawValue().fullName,
       userHandle: this.myForm.getRawValue().userHandle,
@@ -63,33 +62,21 @@ export class MainComponent implements OnInit {
       emailAddress: this.myForm.getRawValue().emailAddress,
       gender: {
         id: Number(this.myForm.getRawValue().gender),
-        text: '',
+        text: (Number(this.myForm.getRawValue().gender) === 1) ? 'Male' : 'Female',
       },
-      phoneNumber: contactNumber,
+      phoneNumber: this.phoneNumber,
     };
     console.log(formData, 'fd');
     
     this._apiservice.post(apiUrl, formData).subscribe(
       
       (res) => {
-
         console.log('Data Submitted!');
+        
       },
       (error) => {
         console.log(error, 'Error in submitting form');
       }
-    );
-
-    // this.http.post('https://sportupapi.otobit.com/Player/sign-up', formData)
-    //   .subscribe(
-    //     (response) => {
-    //       console.log('Post request successful:', response);
-    //       this.router.navigate(['/profile']);
-    //     },
-    //     (error) => {
-    //       // Handle error response
-    //       console.error('Post request failed:', error);
-    //     }
-    //   );
+    );  
   }
 }
