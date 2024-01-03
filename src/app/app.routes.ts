@@ -9,6 +9,7 @@ import { VerifyComponent } from './verify/verify.component';
 import { CongratulationComponent } from './congratulation/congratulation.component';
 import { SelectionComponent } from './selection/selection.component';
 import { EnterdetailComponent } from './enterdetail/enterdetail.component';
+import { PositionsComponent } from './positions/positions.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -19,6 +20,7 @@ export const routes: Routes = [
   { path: 'verify', component: VerifyComponent },
   { path: 'selection', component: SelectionComponent },
   {path:'details',component:MainComponent},
+  {path:'positions',component:PositionsComponent},
   {path:'congratulation',component:CongratulationComponent}
 ];
 

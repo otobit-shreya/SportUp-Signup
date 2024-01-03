@@ -1,0 +1,118 @@
+<!-- <div class="overlay-container">
+    <img src="assets/image_2.png" alt="Image" class="img-fluid">
+
+    <div class="card main overlay-card">
+        <div class="card-body">
+            <form >
+                <div class="text-center">
+                    <h4 class="heading-text font-weight-bold">Select at least 3 sports that interest you</h4>
+                </div>
+                <div class="d-flex">
+                    <div>
+                        <div class="cat ">
+                            <label>
+                            <input type="checkbox" value="1"><span><img src="../../assets/Target 1.svg" alt="" class="icons">Archery</span>
+                            </label>
+                        </div>
+                        <div class="cat ">
+                            <label>
+                            <input type="checkbox" value="1"><span><img src="../../assets/Badminton 1.svg" alt="" class="icons">Badminton </span>
+                            </label>
+                        </div>
+                        <div class="cat ">
+                            <label>
+                            <input type="checkbox" value="1"><span><img src="../../assets/Cricket 1.svg" alt="" class="icons">Cricket</span>
+                            </label>
+                        </div>
+                        <div class="cat ">
+                            <label>
+                            <input type="checkbox" value="1"><span><img src="../../assets/Football 1.svg" alt="" class="icons">Football </span>
+                            </label>
+                        </div>
+                        <div class="cat ">
+                            <label>
+                            <input type="checkbox" value="1"><span><img src="../../assets/Pool 1.svg" alt="" class="icons">Snooker</span>
+                            </label>
+                        </div>
+                        <div class="cat ">
+                            <label>
+                            <input type="checkbox" value="1"><span><img src="../../assets/Running 1.svg" alt="" class="icons">Running</span>
+                            </label>
+                        </div>
+                        <div class="cat ">
+                            <label>
+                            <input type="checkbox" value="1"><span><img src="../../assets/Tennis 1.svg" alt="" class="icons">Tennis</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="cat ">
+                            <label>
+                            <input type="checkbox" value="1"><span><img src="../../assets/Basketball 1.svg" alt="" class="icons">Basketball</span>
+                            </label>
+                        </div>
+                        <div class="cat ">
+                            <label>
+                            <input type="checkbox" value="1"><span><img src="../../assets/Target 1.svg" alt="" class="icons">Chess</span>
+                            </label>
+                        </div>
+                        <div class="cat ">
+                            <label>
+                            <input type="checkbox" value="1"><span><img src="../../assets/Frisbee.svg" alt="" class="icons">Frisbee</span>
+                            </label>
+                        </div>
+                        <div class="cat ">
+                            <label>
+                            <input type="checkbox" value="1"><span><img src="../../assets/Hockey 1.svg" alt="" class="icons">   </span>
+                            </label>
+                        </div>
+                        <div class="cat ">
+                            <label>
+                            <input type="checkbox" value="1"><span><img src="../../assets/Rugby 1.svg" alt="" class="icons">Rugby</span>
+                            </label>
+                        </div>
+                        <div class="cat ">
+                            <label>
+                            <input type="checkbox" value="1"><span><img src="../../assets/Table Tennis 1.svg" alt="" class="icons">Table Tennis</span>
+                            </label>
+                        </div>
+                        <div class="cat ">
+                            <label>
+                            <input type="checkbox" value="1"><span><img src="../../assets/Volleyball 1.svg" alt="" class="icons">Volleyball</span>
+                            </label>
+                        </div>
+                    </div>    
+                </div>
+                <button type="submit" class="btn mt-4 btn-block">
+                    <span class="btn-text">CONTINUE</span>
+                </button>
+            </form>
+        </div>
+    </div>
+</div> -->
+
+<div class="overlay-container">
+    <img src="assets/image_2.png" alt="Background Image" class="img-fluid">
+  
+    <div class="card main overlay-card">
+      <div class="card-body">
+        <form (ngSubmit)="onSubmit()">
+          <div class="text-center">
+            <h4 class="heading-text font-weight-bold">Select at least 3 sports that interest you</h4>
+          </div>
+          <div class="cat-container">
+            <div *ngFor="let sport of sports" class="cat">
+              <label>
+                <input type="checkbox" id="{{sport.id}}" [value]="sport.id" [(ngModel)]="sport.selected" name="sport-{{sport.id}}">
+                <span><img [src]="sport.icon" alt="" class="icons">{{ sport.name }}</span>
+              </label>
+            </div>
+          </div>
+          <button type="submit" class="btn mt-4 btn-block" [disabled]="selectedSports().length < 3">
+            <span class="btn-text">FINISH</span> 
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+  

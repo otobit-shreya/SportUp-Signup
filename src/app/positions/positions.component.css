@@ -1,0 +1,106 @@
+.overlay-card {
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.80);
+    max-width: 450px;
+}
+
+.input {
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.40);
+    background-color: transparent;
+}
+
+.heading-text {
+    color: #424753;
+    font-family: Roboto;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+label {
+    color: #424753;
+    font-family: Roboto;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 0;
+}
+
+.icons {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    /* position: absolute;
+    top: 25%;
+    left: 12%; */
+}
+
+.cat {
+    /* padding: 5px 10px; */
+    margin: 4px;
+    background-color: transparent;
+    overflow: hidden;
+    float: left;
+    border-radius: 10px;
+    border: 1px solid #818181;
+}
+
+.cat label {
+    /* padding: 0px 25px; */
+    float: left;
+    line-height: 2.0em;
+    max-width: 10.2em;
+    height: 2.0em;
+    position: relative;
+}
+
+.cat label span {
+    text-align: center;
+    padding: 0px 10px;
+    display: block;
+}
+
+.cat label input {
+    position: absolute;
+    display: none;
+    color: #424753 !important;
+}
+
+
+.cat input:checked+span {
+    background-color: #FFBE12;
+    border: 2px solid #E9AE12;
+    width: 195px;
+    text-align: left;
+}
+
+
+.cat-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    max-width: 600px;
+    /* Adjust the width as necessary */
+    margin: auto;
+}
+
+.cat {
+    width: calc(50% - 10px);
+    /* Adjust width minus the margin */
+    margin: 5px;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .cat {
+        width: 100%;
+        /* Full width on smaller screens */
+    }
+    .cat input +span{
+        width: 400px !important;
+        text-align: left;
+    }
+}

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -8,6 +8,10 @@ import { RouterLink } from '@angular/router';
   templateUrl: './selection.component.html',
   styleUrl: './selection.component.css'
 })
-export class SelectionComponent {
+export class SelectionComponent implements OnInit{
 
+  constructor(){}
+  ngOnInit(): void {
+      
+  }
 }
