@@ -10,6 +10,7 @@ import {
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ApiService } from '../service/api.service';
 import { ContactService } from '../service/contact.service';
+import { dataService } from '../service/data.service';
 
 @Component({
   selector: 'app-main',
@@ -17,7 +18,7 @@ import { ContactService } from '../service/contact.service';
   imports: [RouterLink, ReactiveFormsModule, FormsModule],
   templateUrl: './main.component.html',
   styleUrl: './main.component.css',
-  providers: [ApiService],
+  providers: [ApiService,dataService],
 })
 export class MainComponent implements OnInit {
   myForm: FormGroup;
@@ -29,7 +30,8 @@ export class MainComponent implements OnInit {
     private http: HttpClient,
     private formBuilder: FormBuilder,
     private _apiservice: ApiService,
-    private _cs: ContactService
+    private _cs: ContactService,
+    private _ds: dataService
   ) {
     // Initialize the form in the constructor
     this.myForm = this.formBuilder.group({
@@ -53,30 +55,22 @@ export class MainComponent implements OnInit {
   }
 
   goToProfile() {
-  
-    const apiUrl = 'api/Player/sign-up-v2';
-    const formData = {
-      fullName: this.myForm.getRawValue().fullName,
-      userHandle: this.myForm.getRawValue().userHandle,
-      dob: this.myForm.getRawValue().dob,
-      emailAddress: this.myForm.getRawValue().emailAddress,
-      gender: {
+    if(this.myForm.valid){
+      this.router.navigate(['/profile'])
+      const fullName = this.myForm.getRawValue().fullName
+      const userHandle = this.myForm.getRawValue().userHandle
+      const dob = this.myForm.getRawValue().dob
+      const emailAddress = this.myForm.getRawValue().emailAddress
+      const gender= {
         id: Number(this.myForm.getRawValue().gender),
         text: (Number(this.myForm.getRawValue().gender) === 1) ? 'Male' : 'Female',
-      },
-      phoneNumber: this.phoneNumber,
-    };
-    console.log(formData, 'fd');
-    
-    this._apiservice.post(apiUrl, formData).subscribe(
-      
-      (res) => {
-        console.log('Data Submitted!');
-        
-      },
-      (error) => {
-        console.log(error, 'Error in submitting form');
       }
-    );  
+
+      const phoneNumber = this.phoneNumber
+
+      this._ds.getdata(phoneNumber,fullName,userHandle,dob,gender,emailAddress);
+    }else{
+      alert("Form is invalid")
+    }
   }
 }

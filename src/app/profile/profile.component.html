@@ -9,7 +9,7 @@
                 </div>
                 <div class="form-group mt-4">
                     <div class="d-flex justify-content-center align-items-center">
-                        <img [src]="imageUrl" alt="Selected Image" (click)="openFileInput()" style="cursor: pointer;
+                        <img [src]="imageUrl" alt="Selected Image" (click)="openFileInput($event)" style="cursor: pointer;
                         border-radius: 50%; width: 10rem; height: 10rem;">
                     </div>
                     <input #fileInput type="file" (change)="onFileSelected($event)" style="display: none;">
@@ -21,7 +21,7 @@
                             </button>
                         </div>
                         <div class="col-md-6">
-                            <button (click)="imageSelect()" class="btn mt-4 btn-block">
+                            <button (click)="imageSelect($event)" class="btn mt-4 btn-block">
                                 <span class="btn-text">SAVE</span>
                             </button>
                         </div>

@@ -103,8 +103,8 @@
           <div class="cat-container">
             <div *ngFor="let sport of sports" class="cat">
               <label>
-                <input type="checkbox" id="{{sport.id}}" [value]="sport.id" [(ngModel)]="sport.selected" name="sport-{{sport.id}}">
-                <span><img [src]="sport.icon" alt="" class="icons">{{ sport.name }}</span>
+                <input type="checkbox" id="{{sport.id}}" [value]="sport.id" [(ngModel)]="sport.selected" name="{{sport.name}}">
+                <span><img [src]="sport.icon" alt="img" class="icons">{{ sport.name }}</span>
               </label>
             </div>
           </div>
