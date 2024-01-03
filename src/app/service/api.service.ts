@@ -7,8 +7,6 @@ import { catchError, filter, shareReplay, tap } from 'rxjs/operators';
 export class ApiService {
   private baseApiUrl = 'https://sportupapi.otobit.com/';
 
-  private subject = new Subject<any>();
-
   constructor(private http: HttpClient) {}
 
   private createHttpHeaders(): HttpHeaders {
@@ -39,19 +37,4 @@ export class ApiService {
     return throwError(error);
   }
 
-  sendNumber(number: string) {
-    this.subject.next({ text: number });
-  }
-
-  clearNumber() {
-    this.subject.next('');
-  }
-
-  getNumber(): Observable<any> {
-    return this.subject.asObservable();
-  }
-
-  sendData(formdata: any) {
-    console.log(formdata, 'api service data');
-  }
 }

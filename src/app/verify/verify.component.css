@@ -99,7 +99,18 @@
   font-weight: 500;
   line-height: 20px;
   text-align: center;
+  text-transform: uppercase;   
+}
+
+.text-3 {
+  color: var(--text-colour, #e81111);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  text-align: center;
   text-transform: uppercase;
+
 }
 
 @media only screen and (max-width: 600px) {

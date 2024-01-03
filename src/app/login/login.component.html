@@ -36,7 +36,7 @@
               class="form-control input"
             >
             </ngx-intl-tel-input>
-            <div *ngIf="myForm.get('mobileNumber')?.touched">
+            <div *ngIf="myForm.get('mobileNumber')?.touched && myForm.get('mobileNumber')?.invalid">
               <span class="text-danger">Invalid mobile number</span>
             </div>
           </div>

@@ -26,8 +26,8 @@ import { ContactService } from '../service/contact.service';
     CommonModule,
     HttpClientModule,
     ReactiveFormsModule,
-    RouterLink,
     NgxIntlTelInputModule,
+    RouterLink
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
@@ -82,7 +82,7 @@ export class LoginComponent implements OnInit {
           (response: any) => {
             console.log('API response:', response);
 
-            this.apiService.sendNumber(phone.contactNumber);
+            this._cs.getotp(response.body.data);
             // Handle successful response, maybe navigate to the verification page
             this.router.navigate(['/verify']);
           },

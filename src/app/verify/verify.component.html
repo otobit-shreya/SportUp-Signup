@@ -21,6 +21,7 @@
         <img class="svg" src="assets/timer.svg" />
         <countdown [config]="{ leftTime: 60}"></countdown>
       </div>
+      <p class="text-3">{{verificationResult}}</p>
       <p class="text-2" >Resend OTP</p>
       <button class="btn" (click)="continueClicked()">
         <span class="btn-text">Continue</span>
