@@ -10,19 +10,21 @@ import { ApiService } from '../service/api.service';
 export class ProfileComponent {
   @ViewChild('fileInput') fileInput!: ElementRef;
   imageUrl: string = 'assets/profile.png'; // Default image URL
+  file: File | null = null;
 
   constructor(private _apiService: ApiService) {}
 
   onFileSelected(event: any): void {
-    const file: File = event.target.files[0];
+    console.log(event)
+    this.file = event.target.files[0];
 
-    if (file) {
+    if (this.file) {
       const reader = new FileReader();
       reader.onload = (e: any) => {
         this.imageUrl = e.target.result;
       };
 
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(this.file);
     }
   }
 
@@ -32,20 +34,23 @@ export class ProfileComponent {
 
   imageSelect(): void {
     console.log('Test');
-    
-    // Replace 'your-api-endpoint' with the actual URL of your API
-    const apiUrl = 'api/ImageUpload/upload';
-    
-    // Assuming your API expects a POST request with a JSON body
-    this._apiService.post(apiUrl,  this.imageUrl ).subscribe(
-      (res) => {
-        console.log('Image uploaded successfully:', res);
-        // You can handle the response as needed
-      },
-      (error) => {
-        console.error('Error uploading image:', error);
-        // Handle the error accordingly
-      }
-    );
+
+    if (this.file) {
+      const apiUrl = 'api/ImageUpload/upload';
+      const formData = new FormData();
+      formData.append('file', this.file);
+
+      // Assuming your API expects a POST request with FormData
+      this._apiService.post(apiUrl, formData).subscribe(
+        (res) => {
+          console.log('Image uploaded successfully:', res);
+          // You can handle the response as needed
+        },
+        (error) => {
+          console.error('Error uploading image:', error);
+          // Handle the error accordingly
+        }
+      )    
+    }
   }
 }

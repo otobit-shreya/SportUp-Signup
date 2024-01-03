@@ -64,7 +64,10 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     console.log(this.myForm.value, 'fff');
     const phoneVal = this.myForm.getRawValue().mobileNumber.number;
+    const dialCode = this.myForm.getRawValue().mobileNumber.dialCode;
     this._cs.getnumber(phoneVal);
+    this._cs.getDialNumber(dialCode);
+
 
     const apiUrl = 'api/Player/sign-up/request-otp';
 

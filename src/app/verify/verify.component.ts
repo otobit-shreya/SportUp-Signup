@@ -25,6 +25,7 @@ import { ContactService } from '../service/contact.service';
 export class VerifyComponent implements OnInit {
   otpInput = '';
   phoneNumber: any='';
+  dialNum: any='';
   sendtp: any='';
   isUser!:boolean;
   verificationResult:any='';
@@ -37,6 +38,7 @@ export class VerifyComponent implements OnInit {
   ) {
     this.phoneNumber = this._cs.conatctval;
     this.sendtp = this._cs.sendp;
+    this.dialNum = this._cs.dial;
 
   }
 
