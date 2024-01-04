@@ -12,12 +12,7 @@ import { Router, RouterLink } from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
   @ViewChild('fileInput') fileInput!: ElementRef;
-<<<<<<< HEAD
   imageUrl: string = 'assets/profile.png'; // Default image URL
-=======
-  imageUrl: string = 'assets/default.png';
-  file: File | null = null;
->>>>>>> c2610838786e2b6f6cfbfe952ec4b87859919366
 
   phoneNumber: number = 0;
   fullName: string = '';
