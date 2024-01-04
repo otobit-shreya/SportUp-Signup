@@ -56,7 +56,7 @@ export class MainComponent implements OnInit {
 
   goToProfile() {
     if(this.myForm.valid){
-      this.router.navigate(['/profile'])
+      
       const fullName = this.myForm.getRawValue().fullName
       const userHandle = this.myForm.getRawValue().userHandle
       const dob = this.myForm.getRawValue().dob
@@ -68,7 +68,8 @@ export class MainComponent implements OnInit {
 
       const phoneNumber = this.phoneNumber
 
-      this._ds.getdata(phoneNumber,fullName,userHandle,dob,gender,emailAddress);
+      // this._ds.getdata(phoneNumber,fullName,userHandle,dob,gender,emailAddress);
+      this.router.navigate(['/profile'],{state:{phoneNumber,fullName,userHandle,dob,gender,emailAddress}})
     }else{
       alert("Form is invalid")
     }

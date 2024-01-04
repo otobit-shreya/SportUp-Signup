@@ -45,7 +45,7 @@ export class VerifyComponent implements OnInit {
   
 
   continueClicked() {
-    console.log(this._cs.conatctval)
+    console.log(this._cs.conatctval) 
     console.log(this._cs.sendp)
     const apiUrl = 'api/Player/sign-up/verify-otp';
     const obj = {

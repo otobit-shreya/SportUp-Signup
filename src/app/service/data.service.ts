@@ -16,7 +16,7 @@ export class dataService {
     profilePicture?: any,
     sportNameLookupIds?: []
   ) {
-    const apiUrl = 'api/Player/sign-up-v2';
+    // const apiUrl  = 'api/Player/sign-up-v2';
     this.formData = {
       phoneNumber,
       fullName,
@@ -28,14 +28,14 @@ export class dataService {
       gender,
     };
     console.log(this.formData, 'fd');
-
-    this._apiService.post(apiUrl, this.formData).subscribe(
-      (res) => {
-        console.log('Data Submitted!');
-      },
-      (error) => {
-        console.log(error, 'Error in submitting form');
-      }
-    );
+    return this.formData;
+    // this._apiService.post(apiUrl, this.formData).subscribe(
+    //   (res) => {
+    //     console.log('Data Submitted!');
+    //   },
+    //   (error) => {
+    //     console.log(error, 'Error in submitting form');
+    //   }
+    // );
   }
 }
