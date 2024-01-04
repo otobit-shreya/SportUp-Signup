@@ -11,11 +11,12 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ApiService } from '../service/api.service';
 import { ContactService } from '../service/contact.service';
 import { dataService } from '../service/data.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule, FormsModule],
+  imports: [RouterLink, ReactiveFormsModule, FormsModule, CommonModule],
   templateUrl: './main.component.html',
   styleUrl: './main.component.css',
   providers: [ApiService,dataService],
@@ -23,6 +24,7 @@ import { dataService } from '../service/data.service';
 export class MainComponent implements OnInit {
   myForm: FormGroup;
   phoneNumber: any='';
+  today: string;
 
   constructor(
     private router: Router,
@@ -42,6 +44,9 @@ export class MainComponent implements OnInit {
       emailAddress: [''],
     });
     this.phoneNumber = this._cs.conatctval;
+
+    const currentDate = new Date();
+    this.today = currentDate.toISOString().slice(0, 10);
   }
 
   ngOnInit(): void {
@@ -53,7 +58,18 @@ export class MainComponent implements OnInit {
         
       })
   }
+  // dateBeforeTodayValidator() {
+  //   return (control: any) => {
+  //     const selectedDate = new Date(control.value);
+  //     const today = new Date();
 
+  //     if (selectedDate > today) {
+  //       return { dateBeforeToday: true };
+  //     }
+
+  //     return null;
+  //   };
+  // }
   goToProfile() {
     if(this.myForm.valid){
       

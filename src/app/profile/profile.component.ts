@@ -77,8 +77,6 @@ export class ProfileComponent implements OnInit {
         gender: this.gender,
         emailAddress: this.emailAddress,
         profilePicture: profilePicture}});
-    
-
 
   }
 }

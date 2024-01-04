@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
@@ -10,8 +11,8 @@ import { RouterLink } from '@angular/router';
 })
 export class SelectionComponent implements OnInit{
 
-  constructor(){}
+  constructor(private http: HttpClient){}
   ngOnInit(): void {
-      
+      this.http.get(`https://sportupapi.otobit.com/api/SportPosition//positions`)
   }
 }
