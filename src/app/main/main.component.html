@@ -19,14 +19,18 @@
                 </div>
                 <div class="mt-2">
                     <label class="label">Date of birth</label>
-                    <input type="date" name="birthday" required ngModel class="form-control input" formControlName="dob">
+                    <input type="date" name="birthday" required ngModel class="form-control input" formControlName="dob" max="{{ today | date:'yyyy-MM-dd' }}">
+                    <!-- <div *ngIf="myForm.get('dob')?.hasError('dateBeforeToday') && myForm.get('dob')?.touched">
+                        Date is invalid.
+                      </div> -->
                 </div>
                 <div class="mt-2">
                     <label class="label">Gender</label>
                     <select name="gender" required ngModel class="form-control input" formControlName="gender">
                         <option value="" selected>Gender</option>
-                        <option value="4">Female</option>
                         <option value="3">Male</option>
+                        <option value="4">Female</option>
+                        
                     </select>
                 </div>
                 <div class="mt-2">

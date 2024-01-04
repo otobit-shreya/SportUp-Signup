@@ -10,19 +10,21 @@ import {
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ApiService } from '../service/api.service';
 import { ContactService } from '../service/contact.service';
-import { dataService } from '../service/data.service';
+import { CommonModule } from '@angular/common';
+import { DataService } from '../service/data.service';
 
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule, FormsModule],
+  imports: [RouterLink, ReactiveFormsModule, FormsModule, CommonModule],
   templateUrl: './main.component.html',
   styleUrl: './main.component.css',
-  providers: [ApiService,dataService],
+  providers: [ApiService],
 })
 export class MainComponent implements OnInit {
   myForm: FormGroup;
   phoneNumber: any='';
+  today: string;
 
   constructor(
     private router: Router,
@@ -31,7 +33,7 @@ export class MainComponent implements OnInit {
     private formBuilder: FormBuilder,
     private _apiservice: ApiService,
     private _cs: ContactService,
-    private _ds: dataService
+    private _ds: DataService
   ) {
     // Initialize the form in the constructor
     this.myForm = this.formBuilder.group({
@@ -42,6 +44,9 @@ export class MainComponent implements OnInit {
       emailAddress: [''],
     });
     this.phoneNumber = this._cs.conatctval;
+
+    const currentDate = new Date();
+    this.today = currentDate.toISOString().slice(0, 10);
   }
 
   ngOnInit(): void {
@@ -53,7 +58,18 @@ export class MainComponent implements OnInit {
         
       })
   }
+  // dateBeforeTodayValidator() {
+  //   return (control: any) => {
+  //     const selectedDate = new Date(control.value);
+  //     const today = new Date();
 
+  //     if (selectedDate > today) {
+  //       return { dateBeforeToday: true };
+  //     }
+
+  //     return null;
+  //   };
+  // }
   goToProfile() {
     if(this.myForm.valid){
       
@@ -63,7 +79,7 @@ export class MainComponent implements OnInit {
       const emailAddress = this.myForm.getRawValue().emailAddress
       const gender= {
         id: Number(this.myForm.getRawValue().gender),
-        text: (Number(this.myForm.getRawValue().gender) === 1) ? 'Male' : 'Female',
+        text: (Number(this.myForm.getRawValue().gender) === 3) ? 'Male' : 'Female',
       }
 
       const phoneNumber = this.phoneNumber
