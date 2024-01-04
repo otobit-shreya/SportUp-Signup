@@ -1,17 +1,18 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from '../service/api.service';
 import { dataService } from '../service/data.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
-  styleUrls: ['./profile.component.css'],
+  standalone: true,
+  imports: [RouterLink],
   templateUrl: './profile.component.html',
   providers: [ApiService,dataService],
 })
 export class ProfileComponent implements OnInit {
   @ViewChild('fileInput') fileInput!: ElementRef;
-  imageUrl: string = 'assets/profile.png'; // Default image URL
+  imageUrl: string = 'assets/default.png';
   file: File | null = null;
 
   phoneNumber: number = 0;
