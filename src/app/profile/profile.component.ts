@@ -12,7 +12,6 @@ import { Router } from '@angular/router';
 export class ProfileComponent implements OnInit {
   @ViewChild('fileInput') fileInput!: ElementRef;
   imageUrl: string = 'assets/profile.png'; // Default image URL
-  file: File | null = null;
 
   phoneNumber: number = 0;
   fullName: string = '';
@@ -48,7 +47,7 @@ export class ProfileComponent implements OnInit {
     // console.log(event, 'vallll');
     const file: File = event.target.files[0];
 
-    if (this.file) {
+    if (file) {
       const reader = new FileReader();
       reader.onload = (e: any) => {
         this.imageUrl = e.target.result;
@@ -56,7 +55,7 @@ export class ProfileComponent implements OnInit {
         
       };
 
-      reader.readAsDataURL(this.file);
+      reader.readAsDataURL(file);
     }
   }
 
