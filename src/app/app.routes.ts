@@ -12,8 +12,8 @@ import { EnterdetailComponent } from './enterdetail/enterdetail.component';
 import { PositionsComponent } from './positions/positions.component';
 
 export const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'home' },
-  { path: 'home/:id', component: HomeComponent },
+  { path: '', pathMatch: 'full', redirectTo: 'home/AXXG59' },
+  { path: 'home/AXXG59', component: HomeComponent },
   { path: 'signup', component: LoginComponent },
   { path: 'login', component: LoginComponent },
   { path: 'profile', component: ProfileComponent },
