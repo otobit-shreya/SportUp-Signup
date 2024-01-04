@@ -3,6 +3,7 @@
   
     <div class="card main overlay-card">
         <div class="card-body">
+            <form (ngSubmit)="goToFinish()"></form>
             <div class="d-flex align-items-center">
                 <img src="../../assets/profile-small.png" routerLink="/profile" class="profile" alt="Image">
                 <p class="name ml-3">Anoop Chaurasia</p>
@@ -35,7 +36,7 @@
                     <option value="striker">Striker</option>
                 </select>
             </div>
-            <button type="submit" class="btn mt-4 btn-block" routerLink="/congratulation">
+            <button type="submit" class="btn mt-4 btn-block" (click)="goToFinish()" routerLink="/congratulation">
                 <span class="btn-text">Save</span>
             </button>
         </div>

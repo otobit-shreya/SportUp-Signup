@@ -1,41 +1,17 @@
-import { Injectable } from '@angular/core';
-import { ApiService } from './api.service';
+import { Injectable } from "@angular/core";
+ 
+@Injectable({providedIn:'root'})
+ 
+export class DataService {
 
-@Injectable({ providedIn: 'root' })
-export class dataService {
-  formData: any = {};
-  constructor(private _apiService: ApiService) {}
-
-  getdata(
-    phoneNumber?: number,
-    fullName?: string,
-    userHandle?: string,
-    dob?: string,
-    gender?: {},
-    emailAddress?: string,
-    profilePicture?: any,
-    sportNameLookupIds?: []
-  ) {
-    // const apiUrl  = 'api/Player/sign-up-v2';
-    this.formData = {
-      phoneNumber,
-      fullName,
-      userHandle,
-      sportNameLookupIds,
-      profilePicture,
-      emailAddress,
-      dob,
-      gender,
-    };
-    console.log(this.formData, 'fd');
-    return this.formData;
-    // this._apiService.post(apiUrl, this.formData).subscribe(
-    //   (res) => {
-    //     console.log('Data Submitted!');
-    //   },
-    //   (error) => {
-    //     console.log(error, 'Error in submitting form');
-    //   }
-    // );
+  rosterCode!: any;
+  sportId!:any;
+  rosterId:any;
+  
+  getCode( sportId:any, rosterId:any) {
+     sportId=sportId
+     rosterId=rosterId
+     console.log(sportId, rosterId);
+     
   }
 }

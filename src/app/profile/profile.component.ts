@@ -1,13 +1,12 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from '../service/api.service';
-import { dataService } from '../service/data.service';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
   styleUrls: ['./profile.component.css'],
   templateUrl: './profile.component.html',
-  providers: [ApiService,dataService],
+  providers: [ApiService],
 })
 export class ProfileComponent implements OnInit {
   @ViewChild('fileInput') fileInput!: ElementRef;
@@ -20,7 +19,7 @@ export class ProfileComponent implements OnInit {
   gender: any = {};
   emailAddress: string = '';
   
-  constructor(private _apiService: ApiService,private _ds: dataService,private router: Router) {
+  constructor(private _apiService: ApiService,private router: Router) {
     const currentNavigation = this.router.getCurrentNavigation();
     // console.log(currentNavigation,'nn');
     if(currentNavigation?.extras.state){

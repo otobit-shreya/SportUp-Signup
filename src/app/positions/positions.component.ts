@@ -5,6 +5,7 @@ import { ApiService } from '../service/api.service';
 import { HttpClient } from '@angular/common/http';
 import { error } from 'console';
 import { Router } from '@angular/router';
+import { DataService } from '../service/data.service';
 // import {MatChipsModule} from '@angular/material/chips';
 
 interface Sport {
@@ -31,7 +32,7 @@ export class PositionsComponent {
   emailAddress: string = '';
   profilePicture: string = '';
 
-  constructor(private _apiservice: ApiService, private http: HttpClient,private router: Router) {
+  constructor(private _apiservice: ApiService, private http: HttpClient,private router: Router, private _ds:DataService) {
     const currentNavigation = this.router.getCurrentNavigation();
     if(currentNavigation?.extras.state){
       this.phoneNumber = currentNavigation.extras.state['phoneNumber'];
@@ -77,7 +78,7 @@ export class PositionsComponent {
         this.sportNameLookupIds.push(sport.id);
       });
        const apiUrl = 'api/Player/sign-up-v2';
-
+const sportId = this._ds.sportId
       // console.log(this.sportNameLookupIds, 'formData');
       const formData = {
         phoneNumber :this.phoneNumber,
@@ -87,7 +88,8 @@ export class PositionsComponent {
         profilePicture: this.profilePicture,
         emailAddress: this.emailAddress,
         dob: this.dob,
-        gender: this.gender
+        gender: this.gender,
+        sportId:sportId
       }
       console.log(formData,'formData');
 
