@@ -56,7 +56,6 @@ export class VerifyComponent {
   }
 
   handleCountdownEvents(event: CountdownEvent): void {
-    console.log('Countdown event:', event);
     if (event.action === 'done') {
       this.resend = true;
     }

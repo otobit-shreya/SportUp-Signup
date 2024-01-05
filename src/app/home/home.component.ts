@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { DataService } from '../service/data.service';
@@ -6,16 +6,16 @@ import { DataService } from '../service/data.service';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink,HttpClientModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
-  providers: [DataService]
 })
 export class HomeComponent implements OnInit {
   public data: any;
   rostercode: any;
   rosterId: any;
   sportId: any;
+  orgHan: any;
   constructor(
     private router: Router,
     private http: HttpClient,
@@ -23,21 +23,30 @@ export class HomeComponent implements OnInit {
     private _ds: DataService
   ) {}
   ngOnInit(): void {
+    this.loadId();
+  }
+
+  loadId() {
+    const apiUrl = 'https://sportupapi.otobit.com/api/rosters/getRosterByCode';
+    const id = 'AXXG59';
+    const url = `${apiUrl}/${id}`;
     this.http
-      .get(`https://sportupapi.otobit.com/api/rosters/getRosterByCode/AXXG59`)
+      .get(url)
       .subscribe(
         (res: any) => {
           this.data = res.data;
           this.rosterId = this.data.rosterId;
           this.sportId = this.data.sportId;
+          this.orgHan = this.data.organizationHandle
+          this._ds.setData( this.data);
           console.log(this.data, 'ress');
-          this._ds.getCode(this.rosterId, this.sportId);
         },
         (err) => {
           console.log(err);
         }
       );
   }
+
   onLogin() {
     this.router.navigate(['login'], { state: {} });
   }

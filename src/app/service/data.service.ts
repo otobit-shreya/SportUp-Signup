@@ -1,17 +1,12 @@
-import { Injectable } from "@angular/core";
- 
-@Injectable({providedIn:'root'})
- 
-export class DataService {
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
-  rosterCode!: any;
-  sportId!:any;
-  rosterId:any;
-  
-  getCode( sportId:any, rosterId:any) {
-     sportId=sportId
-     rosterId=rosterId
-     console.log(sportId, rosterId);
-     
+@Injectable({ providedIn: 'root' })
+export class DataService {
+  private dataSubject = new BehaviorSubject<any>(null);
+  public data$ = this.dataSubject.asObservable();
+
+  setData(data: any): void {
+    this.dataSubject.next(data);
   }
 }
