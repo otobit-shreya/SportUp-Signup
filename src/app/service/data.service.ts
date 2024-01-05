@@ -8,10 +8,11 @@ export class DataService {
   sportId!:any;
   rosterId:any;
   
-  getCode( sportId:any, rosterId:any) {
+  getCode( sportId:any, rosterId:any, rosterCode:any) {
      sportId=sportId
      rosterId=rosterId
-     console.log(sportId, rosterId);
+     rosterCode=rosterCode
+     console.log(sportId, rosterId, 'sid', 'rid');
      
   }
 }

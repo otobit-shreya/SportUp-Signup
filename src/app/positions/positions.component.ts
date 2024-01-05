@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { DataService } from '../service/data.service';
 import { ApiService } from '../service/api.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { DataService } from '../service/data.service';
 
 interface Sport {
   id: number;
@@ -22,7 +22,7 @@ interface Sport {
   ],
   templateUrl: './positions.component.html',
   styleUrls: ['./positions.component.css'],
-  providers: [DataService, ApiService],
+  providers: [ ApiService],
 })
 export class PositionsComponent implements OnInit {
   phoneNumber: number = 0;
@@ -34,13 +34,14 @@ export class PositionsComponent implements OnInit {
   profilePicture: string = '';
   sports: any[] = [];
   sportNameLookupIds: any = [];
+  sportId:any;
 
 
   constructor(
     private http: HttpClient,
     private router: Router,
-    private _ds: DataService,
-    private _apiservice: ApiService
+    private _apiservice: ApiService,
+    private _ds: DataService
   ) {
     const currentNavigation = this.router.getCurrentNavigation();
     if (currentNavigation?.extras.state) {
@@ -58,12 +59,13 @@ export class PositionsComponent implements OnInit {
         this.dob,
         this.gender,
         this.emailAddress,
-        this.profilePicture
+        this.profilePicture,
       );
     }
   }
 
   ngOnInit(): void {
+    
     this.http
       .get('https://sportupapi.otobit.com/api/GetSportNameLookups')
       .subscribe(
@@ -99,6 +101,11 @@ export class PositionsComponent implements OnInit {
       this.sportNameLookupIds = [];
     }
 
+    this.sportId = this._ds.sportId;
+    console.log(this.sportId, 'sid submit');
+    
+
+
     const selected = this.selectedSports();
     if (selected.length >= 3) {
       selected.forEach((sport) => {
@@ -109,26 +116,27 @@ export class PositionsComponent implements OnInit {
         phoneNumber: this.phoneNumber,
         fullName: this.fullName,
         userHandle: this.userHandle,
-        sportNameLookupIds: this._ds.sportId,
+        sportNameLookupIds: this.sportNameLookupIds,
         profilePicture: this.profilePicture,
         emailAddress: this.emailAddress,
         dob: this.dob,
         gender: this.gender,
+        sportId:this.sportId
       };
 
-      console.log(formData, 'formData');
+      console.log(formData, 'formData positions');
 
       // Assuming _apiservice.post method is available in your ApiService
-      this._apiservice.post(apiUrl, formData).subscribe(
-        (res) => {
-          console.log('Data Submitted!');
-          this.router.navigate(['/selections']);
-        },
-        (error) => {
-          console.log(error, 'Error in submitting form');
-          alert('Something went wrong ');
-        }
-      );
+      // this._apiservice.post(apiUrl, formData).subscribe(
+      //   (res) => {
+      //     console.log('Data Submitted!');
+      //     this.router.navigate(['/selection']);
+      //   },
+      //   (error) => {
+      //     console.log(error, 'Error in submitting form');
+      //     alert('Something went wrong ');
+      //   }
+      // );
     } else {
       alert('Please select at least 3 sports.');
     }
