@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { DataService } from '../service/data.service';
-
+ 
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -12,10 +12,11 @@ import { DataService } from '../service/data.service';
   providers: [DataService]
 })
 export class HomeComponent implements OnInit {
-  public data: any;
+ data: any;
   rostercode: any;
   rosterId: any;
   sportId: any;
+  rosterCode!: string;
   constructor(
     private router: Router,
     private http: HttpClient,
@@ -23,25 +24,35 @@ export class HomeComponent implements OnInit {
     private _ds: DataService
   ) {}
   ngOnInit(): void {
-    this.http
-      .get(`https://sportupapi.otobit.com/api/rosters/getRosterByCode/AXXG59`)
-      .subscribe(
-        (res: any) => {
-          this.data = res.data;
-          this.rosterId = this.data.rosterId;
-          this.sportId = this.data.sportId;
-          console.log(this.data, 'ress');
-          this._ds.getCode(this.rosterId, this.sportId);
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
+    // Subscribe to query parameters
+    this.route.queryParams.subscribe(params => {
+      this.rosterCode = params['rosterCode'];
+ 
+      if (this.rosterCode) {
+        this.http
+          .get(`https://sportupapi.otobit.com/api/rosters/getRosterByCode/${this.rosterCode}`)
+          .subscribe(
+            (res: any) => {
+              this.data = res.data;
+              this.rosterId = this.data.rosterId;
+              this.sportId = this.data.sportId;
+              console.log(this.data, 'ress');
+              this._ds.getCode(this.rosterId, this.sportId);
+            },
+            (err) => {
+              console.log(err);
+            }
+          );
+      } else {
+        console.log('Roster code not found in the URL');
+        // Handle the case where roster code is not available in the URL
+      }
+    });
   }
   onLogin() {
     this.router.navigate(['login'], { state: {} });
   }
-
+ 
   onSignUp() {
     this.router.navigate(['signup']);
   }

@@ -104,10 +104,11 @@
             <div *ngFor="let sport of sports" class="cat">
               <label>
                 <input type="checkbox" id="{{sport.id}}" [value]="sport.id" [(ngModel)]="sport.selected" name="{{sport.name}}">
-                <span><img [src]="sport.icon" alt="img" class="icons">{{ sport.name }}</span>
+                <span>{{ sport.name }}</span>
               </label>
             </div>
           </div>
+          
           <button type="submit" class="btn mt-4 btn-block" [disabled]="selectedSports().length < 3">
             <span class="btn-text">FINISH</span> 
           </button>

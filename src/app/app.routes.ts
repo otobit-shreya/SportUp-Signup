@@ -10,10 +10,13 @@ import { CongratulationComponent } from './congratulation/congratulation.compone
 import { SelectionComponent } from './selection/selection.component';
 import { EnterdetailComponent } from './enterdetail/enterdetail.component';
 import { PositionsComponent } from './positions/positions.component';
-
+ 
 export const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'home/AXXG59' },
-  { path: 'home/AXXG59', component: HomeComponent },
+  { path: '', pathMatch: 'full', redirectTo: 'home' },
+  {
+    path: 'home',
+    component: HomeComponent,
+  },
   { path: 'signup', component: LoginComponent },
   { path: 'login', component: LoginComponent },
   { path: 'profile', component: ProfileComponent },
@@ -23,5 +26,5 @@ export const routes: Routes = [
   {path:'positions',component:PositionsComponent},
   {path:'congratulation',component:CongratulationComponent}
 ];
-
+ 
 export const AppRoutingModule = RouterModule.forRoot(routes);
