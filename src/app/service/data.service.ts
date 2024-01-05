@@ -9,9 +9,9 @@ export class DataService {
   rosterId:any;
   
   getCode( sportId:any, rosterId:any, rosterCode:any) {
-     sportId=sportId
-     rosterId=rosterId
-     rosterCode=rosterCode
+     this.sportId= sportId
+     this.rosterId=rosterId
+     this.rosterCode=rosterCode
      console.log(sportId, rosterId, 'sid', 'rid');
      
   }

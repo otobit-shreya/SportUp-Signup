@@ -5,6 +5,7 @@ import { ApiService } from '../service/api.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { DataService } from '../service/data.service';
+import { CodeService } from '../service/code.service';
 
 interface Sport {
   id: number;
@@ -35,13 +36,15 @@ export class PositionsComponent implements OnInit {
   sports: any[] = [];
   sportNameLookupIds: any = [];
   sportId:any;
+  rosterId:any;
 
 
   constructor(
     private http: HttpClient,
     private router: Router,
     private _apiservice: ApiService,
-    private _ds: DataService
+    private _ds: DataService,
+    private _cs:CodeService
   ) {
     const currentNavigation = this.router.getCurrentNavigation();
     if (currentNavigation?.extras.state) {
@@ -97,12 +100,14 @@ export class PositionsComponent implements OnInit {
     return this.sports.filter((sport) => sport.selected);
   }
   onSubmit(): void {
+
+    this.sportId = this._cs.sid;
+    console.log(this.sportId, 'positions');
+    
+
     if (!this.sportNameLookupIds) {
       this.sportNameLookupIds = [];
     }
-
-    this.sportId = this._ds.sportId;
-    console.log(this.sportId, 'sid submit');
     
 
 
@@ -121,7 +126,8 @@ export class PositionsComponent implements OnInit {
         emailAddress: this.emailAddress,
         dob: this.dob,
         gender: this.gender,
-        sportId:this.sportId
+        sportId:this.sportId,
+        rosterId:this.rosterId
       };
 
       console.log(formData, 'formData positions');
