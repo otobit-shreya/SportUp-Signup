@@ -1,26 +1,131 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { ApiService } from '../service/api.service';
+import { DataService } from '../service/data.service';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { ContactService } from '../service/contact.service';
+import { Subscription } from 'rxjs';
+import { UserService } from '../service/user.service';
 
 @Component({
   selector: 'app-selection',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './selection.component.html',
-  styleUrl: './selection.component.css'
+  styleUrl: './selection.component.css',
+  providers: [ApiService, ContactService],
 })
-export class SelectionComponent implements OnInit{
+export class SelectionComponent implements OnInit,OnDestroy {
+  sptId:any;
+  rostId:any;
+  orgHandle:any;
+  isUser!: boolean;
+  myForm: FormGroup;
+  course: string = 'MBA';
+  batch: string = '2023';
+  positions: any;
+  data: any;
+  details: any;
+  private dataSubscription: Subscription;
+  private detailsSubscription: Subscription;
 
-  constructor(private http: HttpClient){}
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private http: HttpClient,
+    private _data: DataService,
+    private _detail: UserService,
+    private _apiService: ApiService
+  ) {
+    this.myForm = this.fb.group({
+      course: ['MBA', Validators.required],
+      batch: ['2023', Validators.required],
+      position: [null, Validators.required],
+    });   
+   this.dataSubscription = this._data.data$.subscribe((data) => {
+      this.data = data;
+      console.log(this.data);
+    });
+
+    this.detailsSubscription = this._detail.data$.subscribe((detail) => {
+      this.details = detail;
+      console.log(this.details);
+    });
+  }
+
   ngOnInit(): void {
-      this.http.get(`https://sportupapi.otobit.com/api/SportPosition/1/positions`).subscribe(res => {
-        console.log(res,"Selection res");
-      }, err => {
+    this.positionData();
+  }
+
+  
+
+  positionData() {
+    const apiUrl = 'https://sportupapi.otobit.com/api/SportPosition';
+    const id = '1';
+    const url = `${apiUrl}/${id}/positions`;
+    this.http.get(url).subscribe(
+      (res) => {
+        this.positions = res;
+        console.log(this.positions);
+      },
+      (err) => {
         console.log(err);
-      })
+      }
+    );
+  }
+  setValueBasedOnId(dsId: any): void {
+    const selectedPositionId: any = dsId.target.value;
+    this.myForm.patchValue({
+      position: selectedPositionId,
+    });
   }
 
   goToFinish(): void {
-    const apiUrl = 'api/Player/sign-up-v2';
+    console.log(this.myForm.value);
+    const formValues = this.myForm.value;
+    const apiUrl = 'api/rosters/addPlayersByCode';
+    const data = {
+      rostercode: "AXXG59",
+      orgUserHandle: this.data.organizationHandle,
+      player: {
+        profilePicture: this.details.profilePicture,
+        fullName: this.details.fullName,
+        userHandle: this.details.userHandle,
+        courseName: formValues.course,
+        year: formValues.batch,
+        position: parseInt(formValues.position),
+        role: null,
+      },
+    };
+    console.log(data);
+    
+
+    this._apiService.post(apiUrl, data).subscribe(
+      (response: any) => {
+        console.log('API response:', response);
+        this.isUser = response.body.data.isSuccessful;
+        if (this.isUser) {
+          alert('Player detail added successfully');
+          this.router.navigate(['congratulation']);
+        } else {
+          alert('Player detail added failed');
+        }
+      },
+      (error) => {
+        // Handle API error response
+        console.error('API error:', error);
+      }
+    );
+  }
+  ngOnDestroy(): void {
+    this.dataSubscription.unsubscribe();
   }
 }

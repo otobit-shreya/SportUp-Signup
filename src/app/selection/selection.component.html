@@ -1,44 +1,75 @@
 <div class="overlay-container">
-    <img src="assets/image_2.png" alt="Image" class="img-fluid" />
-  
-    <div class="card main overlay-card">
-        <div class="card-body">
-            <form (ngSubmit)="goToFinish()"></form>
-            <div class="d-flex align-items-center">
-                <img src="../../assets/profile-small.png" routerLink="/profile" class="profile" alt="Image">
-                <p class="name ml-3">Anoop Chaurasia</p>
-            </div>
-            <div class="mt-2">
-                <label class="label">Course Name  (if educational institution)</label>
-                <input type="text" name="course" id="course" class="form-control input" placeholder="MBA">
-                <!-- <select name="course" id="course" class="form-control input">
+  <img src="assets/image_2.png" alt="Image" class="img-fluid" />
+
+  <div class="card main overlay-card">
+    <form [formGroup]="myForm">
+      <div class="card-body">
+        <div class="d-flex align-items-center">
+          <img
+            *ngIf="this.details.profilePicture; else defaultImage"
+            [src]="this.details.profilePicture"
+            class="profile"
+            alt="Image"
+          />
+
+          <ng-template #defaultImage>
+            <img
+              src="../../assets/profile.png"
+              class="profile"
+              alt="Image"
+            />
+          </ng-template>
+          <p class="name ml-3">{{ this.details.fullName }}</p>
+        </div>
+        <div class="mt-2">
+          <label class="label">Course Name (if educational institution)</label>
+          <input
+            type="text"
+            formControlName="course"
+            class="form-control input"
+            placeholder="Enter your course"
+          />
+          <!-- <select name="course" id="course" class="form-control input">
                     <option value="mba">MBA</option>
                     <option value="mca">MCA</option>
                     <option value="btech">BTECH</option>
                 </select> -->
-            </div>
-            <div class="mt-2">
-                <label class="label">Batch Year (if educational institution)</label>
-                <input type="text" name="batch" id="batch" class="form-control input" placeholder="2023">
-                <!-- <select name="batch" id="batch" class="form-control input">
+        </div>
+        <div class="mt-2">
+          <label class="label">Batch Year (if educational institution)</label>
+          <input
+            type="text"
+            formControlName="batch"
+            class="form-control input"
+            placeholder="Enter your batch"
+          />
+          <!-- <select name="batch" id="batch" class="form-control input">
                     <option value="2023">2023</option>
                     <option value="2022">2022</option>
                     <option value="2021">2021</option>
                     <option value="2020">2020</option>
                     <option value="2019">2019</option>
                 </select> -->
-            </div>
-            <div class="mt-2">
-                <label class="label">Position</label>
-                <select name="position" id="position" class="form-control input pr-2">
-                    <option value="goalkeeper">Goalkeeper</option>
-                    <option value="midfielder">Midfielder</option>
-                    <option value="striker">Striker</option>
-                </select>
-            </div>
-            <button type="submit" class="btn mt-4 btn-block" (click)="goToFinish()" routerLink="/congratulation">
-                <span class="btn-text">Save</span>
-            </button>
         </div>
-    </div>
+        <div class="mt-2">
+          <label class="label">Position</label>
+          <select
+            formControlName="position"
+            class="form-control input pr-2"
+            (change)="setValueBasedOnId($event)"
+          >
+            <option
+              *ngFor="let ds of this.positions; let i = index"
+              [value]="ds.positionId"
+            >
+              {{ ds.name }}
+            </option>
+          </select>
+        </div>
+        <button (click)="goToFinish()" class="btn mt-4 btn-block">
+          <span class="btn-text">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
 </div>

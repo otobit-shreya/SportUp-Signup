@@ -23,8 +23,9 @@ import { DataService } from '../service/data.service';
 })
 export class MainComponent implements OnInit {
   myForm: FormGroup;
-  phoneNumber: any='';
+  phoneNumber: any = '';
   today: string;
+  genderData: any;
 
   constructor(
     private router: Router,
@@ -50,14 +51,24 @@ export class MainComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      this.http.get('https://sportupapi.otobit.com/api/CommonFixedLookup/GetByType/GenderType').subscribe(res=>{
-        console.log(res, 'get gender');
-        
-      }, error=>{
-        console.log('Error');
-        
-      })
+    this.gender();
   }
+
+  gender() {
+    this.http
+      .get(
+        'https://sportupapi.otobit.com/api/CommonFixedLookup/GetByType/GenderType'
+      )
+      .subscribe(
+        (res: any) => {
+          this.genderData = res.data;
+        },
+        (error) => {
+          console.log('Error');
+        }
+      );
+  }
+
   // dateBeforeTodayValidator() {
   //   return (control: any) => {
   //     const selectedDate = new Date(control.value);
@@ -71,23 +82,25 @@ export class MainComponent implements OnInit {
   //   };
   // }
   goToProfile() {
-    if(this.myForm.valid){
-      
-      const fullName = this.myForm.getRawValue().fullName
-      const userHandle = this.myForm.getRawValue().userHandle
-      const dob = this.myForm.getRawValue().dob
-      const emailAddress = this.myForm.getRawValue().emailAddress
-      const gender= {
+    if (this.myForm.valid) {
+      const fullName = this.myForm.getRawValue().fullName;
+      const userHandle = this.myForm.getRawValue().userHandle;
+      const dob = this.myForm.getRawValue().dob;
+      const emailAddress = this.myForm.getRawValue().emailAddress;
+      const gender = {
         id: Number(this.myForm.getRawValue().gender),
-        text: (Number(this.myForm.getRawValue().gender) === 3) ? 'Male' : 'Female',
-      }
+        text:
+          Number(this.myForm.getRawValue().gender) === 3 ? 'Male' : 'Female',
+      };
 
-      const phoneNumber = this.phoneNumber
+      const phoneNumber = this.phoneNumber;
 
       // this._ds.getdata(phoneNumber,fullName,userHandle,dob,gender,emailAddress);
-      this.router.navigate(['/profile'],{state:{phoneNumber,fullName,userHandle,dob,gender,emailAddress}})
-    }else{
-      alert("Form is invalid")
+      this.router.navigate(['/profile'], {
+        state: { phoneNumber, fullName, userHandle, dob, gender, emailAddress },
+      });
+    } else {
+      alert('Form is invalid');
     }
   }
 }
