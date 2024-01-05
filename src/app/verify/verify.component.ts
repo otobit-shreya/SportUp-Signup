@@ -21,6 +21,7 @@ import {
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ContactService } from '../service/contact.service';
+import { UserService } from '../service/user.service';
 @Component({
   selector: 'app-verify',
   standalone: true,
@@ -48,7 +49,8 @@ export class VerifyComponent {
     private _apiService: ApiService,
     private router: Router,
     private cdr: ChangeDetectorRef,
-    private _cs: ContactService
+    private _cs: ContactService,
+    private _us: UserService
   ) {
     this.phoneNumber = this._cs.conatctval;
     this.dialNum = this._cs.dial;
@@ -95,9 +97,11 @@ export class VerifyComponent {
       this._apiService.post(apiUrl, obj).subscribe(
         (res) => {
           console.log(res);
+          const detail = res.body.data.userDetails;
+          this._us.getdetails( detail);
           this.isUser = res.body.data.hasPlayer;
           if (this.isUser === true) {
-            this.router.navigate(['/selection']);
+            this.router.navigate(['/selection'],{ skipLocationChange: true });
           } else if (this.isUser === false) {
             this.router.navigate(['/details']);
           }

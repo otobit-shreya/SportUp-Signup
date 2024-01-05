@@ -6,7 +6,7 @@ export class DataService {
   private dataSubject = new BehaviorSubject<any>(null);
   public data$ = this.dataSubject.asObservable();
 
-  setData(data: any): void {
+  getData(data: any): void {
     this.dataSubject.next(data);
   }
 }

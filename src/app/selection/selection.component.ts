@@ -13,6 +13,7 @@ import {
 } from '@angular/forms';
 import { ContactService } from '../service/contact.service';
 import { Subscription } from 'rxjs';
+import { UserService } from '../service/user.service';
 
 @Component({
   selector: 'app-selection',
@@ -32,13 +33,16 @@ export class SelectionComponent implements OnInit,OnDestroy {
   batch: string = '2023';
   positions: any;
   data: any;
+  details: any;
   private dataSubscription: Subscription;
+  private detailsSubscription: Subscription;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private http: HttpClient,
     private _data: DataService,
+    private _detail: UserService,
     private _apiService: ApiService
   ) {
     this.myForm = this.fb.group({
@@ -49,6 +53,11 @@ export class SelectionComponent implements OnInit,OnDestroy {
    this.dataSubscription = this._data.data$.subscribe((data) => {
       this.data = data;
       console.log(this.data);
+    });
+
+    this.detailsSubscription = this._detail.data$.subscribe((detail) => {
+      this.details = detail;
+      console.log(this.details);
     });
   }
 
@@ -84,23 +93,25 @@ export class SelectionComponent implements OnInit,OnDestroy {
     const formValues = this.myForm.value;
     const apiUrl = 'api/rosters/addPlayersByCode';
     const data = {
-      rostercode: this.data.rosterId,
+      rostercode: "AXXG59",
       orgUserHandle: this.data.organizationHandle,
       player: {
-        profilePicture: 'assets/profile.png',
-        fullName: 'testing',
-        userHandle: 'test_checking',
+        profilePicture: this.details.profilePicture,
+        fullName: this.details.fullName,
+        userHandle: this.details.userHandle,
         courseName: formValues.course,
         year: formValues.batch,
-        position: formValues.position,
-        role: 'test',
+        position: parseInt(formValues.position),
+        role: null,
       },
     };
+    console.log(data);
+    
 
     this._apiService.post(apiUrl, data).subscribe(
       (response: any) => {
-        this.isUser = response.body.data.isSuccessful;
         console.log('API response:', response);
+        this.isUser = response.body.data.isSuccessful;
         if (this.isUser) {
           alert('Player detail added successfully');
           this.router.navigate(['congratulation']);

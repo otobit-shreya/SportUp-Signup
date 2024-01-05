@@ -6,11 +6,20 @@
       <div class="card-body">
         <div class="d-flex align-items-center">
           <img
-            src="../../assets/profile-small.png"
+            *ngIf="this.details.profilePicture; else defaultImage"
+            [src]="this.details.profilePicture"
             class="profile"
             alt="Image"
           />
-          <p class="name ml-3">Anoop Chaurasia</p>
+
+          <ng-template #defaultImage>
+            <img
+              src="../../assets/profile.png"
+              class="profile"
+              alt="Image"
+            />
+          </ng-template>
+          <p class="name ml-3">{{ this.details.fullName }}</p>
         </div>
         <div class="mt-2">
           <label class="label">Course Name (if educational institution)</label>
@@ -33,7 +42,6 @@
             formControlName="batch"
             class="form-control input"
             placeholder="Enter your batch"
-
           />
           <!-- <select name="batch" id="batch" class="form-control input">
                     <option value="2023">2023</option>
@@ -45,12 +53,18 @@
         </div>
         <div class="mt-2">
           <label class="label">Position</label>
-          <select formControlName="position" class="form-control input pr-2" (change)="setValueBasedOnId($event)">
-            <option *ngFor="let ds of this.positions; let i = index" [value]="ds.positionId">
+          <select
+            formControlName="position"
+            class="form-control input pr-2"
+            (change)="setValueBasedOnId($event)"
+          >
+            <option
+              *ngFor="let ds of this.positions; let i = index"
+              [value]="ds.positionId"
+            >
               {{ ds.name }}
             </option>
           </select>
-          
         </div>
         <button (click)="goToFinish()" class="btn mt-4 btn-block">
           <span class="btn-text">Save</span>

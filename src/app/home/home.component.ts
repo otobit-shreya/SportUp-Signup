@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit {
           this.rosterId = this.data.rosterId;
           this.sportId = this.data.sportId;
           this.orgHan = this.data.organizationHandle
-          this._ds.setData( this.data);
+          this._ds.getData( this.data);
           console.log(this.data, 'ress');
         },
         (err) => {
