@@ -133,16 +133,16 @@ export class PositionsComponent implements OnInit {
       console.log(formData, 'formData positions');
 
       // Assuming _apiservice.post method is available in your ApiService
-      // this._apiservice.post(apiUrl, formData).subscribe(
-      //   (res) => {
-      //     console.log('Data Submitted!');
-      //     this.router.navigate(['/selection']);
-      //   },
-      //   (error) => {
-      //     console.log(error, 'Error in submitting form');
-      //     alert('Something went wrong ');
-      //   }
-      // );
+      this._apiservice.post(apiUrl, formData).subscribe(
+        (res) => {
+          console.log('Data Submitted!');
+          this.router.navigate(['/selection']);
+        },
+        (error) => {
+          console.log(error, 'Error in submitting form');
+          alert('Something went wrong ');
+        }
+      );
     } else {
       alert('Please select at least 3 sports.');
     }
