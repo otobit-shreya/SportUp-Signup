@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { DataService } from '../service/data.service';
 import { CodeService } from '../service/code.service';
 import { Subscription } from 'rxjs';
+import { snackbarService } from '../service/snackbar.service';
 // import {MatChipsModule} from '@angular/material/chips';
 
 interface Sport {
@@ -49,6 +50,7 @@ export class PositionsComponent implements OnInit {
     private router: Router,
     private _ds: DataService,
     private _cs: CodeService,
+    private _snackbar: snackbarService
   ) {
     const currentNavigation = this.router.getCurrentNavigation();
     if (currentNavigation?.extras.state) {
@@ -147,11 +149,13 @@ export class PositionsComponent implements OnInit {
       this._apiservice.post(apiUrl, formData).subscribe(
         (res) => {
           console.log('Data Submitted!');
+          this._snackbar.openSuccess('Signup Successful');
           this.router.navigate(['/selection']);
         },
         (error) => {
           console.log(error, 'Error in submitting form');
-          alert('Something went wrong ');
+          this._snackbar.openError('Signup Failed');
+          // alert('Something went wrong ');
         }
       );
     } else {

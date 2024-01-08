@@ -14,6 +14,7 @@ import {
 import { ContactService } from '../service/contact.service';
 import { Subscription } from 'rxjs';
 import { UserService } from '../service/user.service';
+import { snackbarService } from '../service/snackbar.service';
 
 @Component({
   selector: 'app-selection',
@@ -43,7 +44,8 @@ export class SelectionComponent implements OnInit,OnDestroy {
     private http: HttpClient,
     private _data: DataService,
     private _detail: UserService,
-    private _apiService: ApiService
+    private _apiService: ApiService,
+    private _snackbar: snackbarService
   ) {
     this.myForm = this.fb.group({
       course: ['MBA', Validators.required],
@@ -113,10 +115,12 @@ export class SelectionComponent implements OnInit,OnDestroy {
         console.log('API response:', response);
         this.isUser = response.body.data.isSuccessful;
         if (this.isUser) {
-          alert('Player detail added successfully');
+          this._snackbar.openSuccess('Player added successfully');
+          // alert('Player detail added successfully');
           this.router.navigate(['/congratulation']);
         } else {
-          alert('Player detail added failed');
+          this._snackbar.openError('Something went wrong');
+          // alert('Player detail added failed');
         }
       },
       (error) => {

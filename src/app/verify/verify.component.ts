@@ -22,6 +22,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ContactService } from '../service/contact.service';
 import { UserService } from '../service/user.service';
+import { snackbarService } from '../service/snackbar.service';
 @Component({
   selector: 'app-verify',
   standalone: true,
@@ -50,7 +51,8 @@ export class VerifyComponent {
     private router: Router,
     private cdr: ChangeDetectorRef,
     private _cs: ContactService,
-    private _us: UserService
+    private _us: UserService,
+    private _snackbar: snackbarService
   ) {
     this.phoneNumber = this._cs.conatctval;
     this.dialNum = this._cs.dial;
@@ -101,12 +103,14 @@ export class VerifyComponent {
           this._us.getdetails( detail);
           this.isUser = res.body.data.hasPlayer;
           if (this.isUser === true) {
+            this._snackbar.openSuccess('Login successful');
             this.router.navigate(['/selection'],{ skipLocationChange: true });
           } else if (this.isUser === false) {
             this.router.navigate(['/details']);
           }
         },
         (error) => {
+          this._snackbar.openError('Something went wrong');
           console.log(error, 'Error in submitting form');
         }
       );
