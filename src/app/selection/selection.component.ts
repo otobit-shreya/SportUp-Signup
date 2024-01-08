@@ -114,7 +114,7 @@ export class SelectionComponent implements OnInit,OnDestroy {
         this.isUser = response.body.data.isSuccessful;
         if (this.isUser) {
           alert('Player detail added successfully');
-          this.router.navigate(['congratulation']);
+          this.router.navigate(['/congratulation']);
         } else {
           alert('Player detail added failed');
         }
