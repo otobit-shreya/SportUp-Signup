@@ -92,7 +92,14 @@ label {
     /* Adjust width minus the margin */
     margin: 5px;
 }
-
+.success-snackbar {
+    background-color: #43a047; /* Green */
+  }
+  
+  .error-snackbar {
+    background-color: #d32f2f; /* Red */
+  }
+  
 /* Responsive design for smaller screens */
 @media (max-width: 768px) {
     .cat {

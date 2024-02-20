@@ -21,7 +21,7 @@
         <img class="svg" src="assets/timer.svg" />
         <countdown #countdown [config]="countdownConfig" (event)="handleCountdownEvents($event)"></countdown>
       </div>
-      <p class="text-3">{{verificationResult}}</p>
+      <!-- <p class="text-3">{{verificationResult}}</p> -->
       <p class="text-2" *ngIf="resend" (click)="resendClicked()" >Resend OTP</p>
       <button class="btn" (click)="continueClicked()">
         <span class="btn-text">Continue</span>

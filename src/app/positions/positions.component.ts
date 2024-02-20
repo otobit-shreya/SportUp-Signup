@@ -6,6 +6,9 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { DataService } from '../service/data.service';
 import { CodeService } from '../service/code.service';
+import { Subscription } from 'rxjs';
+import { snackbarService } from '../service/snackbar.service';
+// import {MatChipsModule} from '@angular/material/chips';
 
 interface Sport {
   id: number;
@@ -33,18 +36,21 @@ export class PositionsComponent implements OnInit {
   gender: any = {};
   emailAddress: string = '';
   profilePicture: string = '';
+  data: any;
   sports: any[] = [];
   sportNameLookupIds: any = [];
-  sportId:any;
+  spId:any;
   rosterId:any;
 
+  private dataSubscription: Subscription;
 
   constructor(
+    private _apiservice: ApiService,
     private http: HttpClient,
     private router: Router,
-    private _apiservice: ApiService,
     private _ds: DataService,
-    private _cs:CodeService
+    private _cs: CodeService,
+    private _snackbar: snackbarService
   ) {
     const currentNavigation = this.router.getCurrentNavigation();
     if (currentNavigation?.extras.state) {
@@ -65,6 +71,11 @@ export class PositionsComponent implements OnInit {
         this.profilePicture,
       );
     }
+
+    this.dataSubscription = this._ds.data$.subscribe((data) => {
+      this.data = data;
+      console.log(this.data);
+    });
   }
 
   ngOnInit(): void {
@@ -101,8 +112,8 @@ export class PositionsComponent implements OnInit {
   }
   onSubmit(): void {
 
-    this.sportId = this._cs.sid;
-    console.log(this.sportId, 'positions');
+    this.spId = this._cs.sid;
+    console.log(this.spId, 'positions');
     
 
     if (!this.sportNameLookupIds) {
@@ -117,17 +128,20 @@ export class PositionsComponent implements OnInit {
         this.sportNameLookupIds.push(sport.id);
       });
       const apiUrl = 'api/Player/sign-up-v2';
+      // const sportId = this.data.sportId;
+      // console.log(sportId);
+      // console.log(this.sportNameLookupIds, 'formData');
       const formData = {
         phoneNumber: this.phoneNumber,
         fullName: this.fullName,
         userHandle: this.userHandle,
+        sportId:this.spId,
         sportNameLookupIds: this.sportNameLookupIds,
         profilePicture: this.profilePicture,
         emailAddress: this.emailAddress,
         dob: this.dob,
         gender: this.gender,
-        sportId:this.sportId,
-        rosterId:this.rosterId
+        
       };
 
       console.log(formData, 'formData positions');
@@ -136,11 +150,13 @@ export class PositionsComponent implements OnInit {
       this._apiservice.post(apiUrl, formData).subscribe(
         (res) => {
           console.log('Data Submitted!');
+          this._snackbar.openSuccess('Signup Successful');
           this.router.navigate(['/selection']);
         },
         (error) => {
           console.log(error, 'Error in submitting form');
-          alert('Something went wrong ');
+          this._snackbar.openError('Signup Failed');
+          // alert('Something went wrong ');
         }
       );
     } else {
@@ -148,5 +164,7 @@ export class PositionsComponent implements OnInit {
     }
   }
 
-  
+  ngOnDestroy(): void {
+    this.dataSubscription.unsubscribe();
+  }
 }

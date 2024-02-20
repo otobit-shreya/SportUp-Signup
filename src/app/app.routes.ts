@@ -22,9 +22,9 @@ export const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'verify', component: VerifyComponent },
   { path: 'selection', component: SelectionComponent },
-  {path:'details',component:MainComponent},
-  {path:'positions',component:PositionsComponent},
-  {path:'congratulation',component:CongratulationComponent}
+  { path: 'details',component:MainComponent },
+  { path: 'positions',component:PositionsComponent },
+  { path: 'congratulation',component:CongratulationComponent }
 ];
  
 export const AppRoutingModule = RouterModule.forRoot(routes);

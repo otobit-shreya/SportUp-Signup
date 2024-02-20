@@ -1,47 +1,48 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { RouterLink, Router, ActivatedRoute } from '@angular/router';
-import { DataService } from '../service/data.service';
 import { CodeService } from '../service/code.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink,HttpClientModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
-  providers: [DataService],
 })
 export class HomeComponent implements OnInit {
-  data: any;
-  rosterCode: any;
+  public data: any;
+  rostercode: any;
+  rosterId: any;
+  sportId: any;
+  orgHan: any;
   constructor(
     private router: Router,
     private http: HttpClient,
     private route: ActivatedRoute,
-    private _ds: DataService,
     private _cs: CodeService
   ) {}
   ngOnInit(): void {
     // Subscribe to query parameters
     this.route.queryParams.subscribe((params) => {
-      this.rosterCode = params['rosterCode'];
+      this.rostercode = params['rosterCode'];
 
-      if (this.rosterCode) {
+      if (this.rostercode) {
         this.http
           .get(
-            `https://sportupapi.otobit.com/api/rosters/getRosterByCode/${this.rosterCode}`
+            `https://sportupapi.otobit.com/api/rosters/getRosterByCode/${this.rostercode}`
           )
           .subscribe(
             (res: any) => {
               this.data = res.data;
               console.log(res.data, 'resssss');
 
-              const rosterCode = this.rosterCode;
+              const rosterCode = this.rostercode;
               const rosterId = this.data.rosterId;
               const sportId = this.data.sportId;
-              this._cs.getnumber(sportId, rosterId, rosterCode);
-              console.log(sportId, rosterId, rosterCode);
+              const organizationHandle = this.data.organizationHandle;
+              this._cs.getnumber(sportId, rosterId, rosterCode,organizationHandle);
+              console.log(sportId, rosterId, rosterCode,organizationHandle);
             },
             (err) => {
               console.log(err);
@@ -53,6 +54,7 @@ export class HomeComponent implements OnInit {
       }
     });
   }
+
   onLogin() {
     this.router.navigate(['login'], { state: {} });
   }
