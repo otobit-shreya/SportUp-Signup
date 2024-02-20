@@ -39,7 +39,7 @@ export class PositionsComponent implements OnInit {
   data: any;
   sports: any[] = [];
   sportNameLookupIds: any = [];
-  sportId:any;
+  spId:any;
   rosterId:any;
 
   private dataSubscription: Subscription;
@@ -112,8 +112,8 @@ export class PositionsComponent implements OnInit {
   }
   onSubmit(): void {
 
-    this.sportId = this._cs.sid;
-    console.log(this.sportId, 'positions');
+    this.spId = this._cs.sid;
+    console.log(this.spId, 'positions');
     
 
     if (!this.sportNameLookupIds) {
@@ -128,19 +128,20 @@ export class PositionsComponent implements OnInit {
         this.sportNameLookupIds.push(sport.id);
       });
       const apiUrl = 'api/Player/sign-up-v2';
-      const sportId = this.data.sportId;
-      console.log(sportId);
+      // const sportId = this.data.sportId;
+      // console.log(sportId);
       // console.log(this.sportNameLookupIds, 'formData');
       const formData = {
         phoneNumber: this.phoneNumber,
         fullName: this.fullName,
         userHandle: this.userHandle,
+        sportId:this.spId,
         sportNameLookupIds: this.sportNameLookupIds,
         profilePicture: this.profilePicture,
         emailAddress: this.emailAddress,
         dob: this.dob,
         gender: this.gender,
-        sportId:this.sportId,
+        
       };
 
       console.log(formData, 'formData positions');

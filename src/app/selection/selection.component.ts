@@ -1,9 +1,9 @@
-import { HttpClient } from '@angular/common/http';
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../service/api.service';
 import { DataService } from '../service/data.service';
+import { CodeService } from '../service/code.service';
 import {
   FormBuilder,
   FormGroup,
@@ -15,7 +15,6 @@ import { ContactService } from '../service/contact.service';
 import { Subscription } from 'rxjs';
 import { UserService } from '../service/user.service';
 import { snackbarService } from '../service/snackbar.service';
-
 @Component({
   selector: 'app-selection',
   standalone: true,
@@ -45,7 +44,8 @@ export class SelectionComponent implements OnInit,OnDestroy {
     private _data: DataService,
     private _detail: UserService,
     private _apiService: ApiService,
-    private _snackbar: snackbarService
+    private _snackbar: snackbarService,
+    private _cs : CodeService
   ) {
     this.myForm = this.fb.group({
       course: ['MBA', Validators.required],
@@ -71,7 +71,7 @@ export class SelectionComponent implements OnInit,OnDestroy {
 
   positionData() {
     const apiUrl = 'https://sportupapi.otobit.com/api/SportPosition';
-    const id = '1';
+    const id = this._cs.sid;
     const url = `${apiUrl}/${id}/positions`;
     this.http.get(url).subscribe(
       (res) => {
@@ -89,14 +89,14 @@ export class SelectionComponent implements OnInit,OnDestroy {
       position: selectedPositionId,
     });
   }
-
+  
   goToFinish(): void {
     console.log(this.myForm.value);
     const formValues = this.myForm.value;
-    const apiUrl = 'api/rosters/addPlayersByCode';
+    const apiUrl = 'https://sportupapi.otobit.com/api/rosters/addPlayersByCode';
     const data = {
-      rostercode: "AXXG59",
-      orgUserHandle: this.data.organizationHandle,
+      rostercode: this._cs.rcode,
+      orgUserHandle: this._cs.orghand,
       player: {
         profilePicture: this.details.profilePicture,
         fullName: this.details.fullName,
@@ -107,25 +107,26 @@ export class SelectionComponent implements OnInit,OnDestroy {
         role: null,
       },
     };
-    console.log(data);
+    console.log(data,'dataaaaa');
     
 
-    this._apiService.post(apiUrl, data).subscribe(
+    this.http.post(apiUrl, data).subscribe(
       (response: any) => {
         console.log('API response:', response);
-        this.isUser = response.body.data.isSuccessful;
-        if (this.isUser) {
+        // this.isUser = response.body.data.isSuccessful;
+        // if (this.isUser) {
           this._snackbar.openSuccess('Player added successfully');
           // alert('Player detail added successfully');
           this.router.navigate(['/congratulation']);
-        } else {
-          this._snackbar.openError('Something went wrong');
+        // } else {
           // alert('Player detail added failed');
-        }
+        // }
       },
       (error) => {
         // Handle API error response
         console.error('API error:', error);
+        this._snackbar.openError('Something went wrong');
+
       }
     );
   }

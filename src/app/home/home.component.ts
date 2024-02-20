@@ -40,8 +40,9 @@ export class HomeComponent implements OnInit {
               const rosterCode = this.rostercode;
               const rosterId = this.data.rosterId;
               const sportId = this.data.sportId;
-              this._cs.getnumber(sportId, rosterId, rosterCode);
-              console.log(sportId, rosterId, rosterCode);
+              const organizationHandle = this.data.organizationHandle;
+              this._cs.getnumber(sportId, rosterId, rosterCode,organizationHandle);
+              console.log(sportId, rosterId, rosterCode,organizationHandle);
             },
             (err) => {
               console.log(err);
