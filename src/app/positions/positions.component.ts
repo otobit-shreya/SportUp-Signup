@@ -8,6 +8,7 @@ import { DataService } from '../service/data.service';
 import { CodeService } from '../service/code.service';
 import { Subscription } from 'rxjs';
 import { snackbarService } from '../service/snackbar.service';
+import { UserService } from '../service/user.service';
 // import {MatChipsModule} from '@angular/material/chips';
 
 interface Sport {
@@ -50,7 +51,8 @@ export class PositionsComponent implements OnInit {
     private router: Router,
     private _ds: DataService,
     private _cs: CodeService,
-    private _snackbar: snackbarService
+    private _snackbar: snackbarService,
+    private _us: UserService,
   ) {
     const currentNavigation = this.router.getCurrentNavigation();
     if (currentNavigation?.extras.state) {
@@ -149,7 +151,9 @@ export class PositionsComponent implements OnInit {
       // Assuming _apiservice.post method is available in your ApiService
       this._apiservice.post(apiUrl, formData).subscribe(
         (res) => {
-          console.log('Data Submitted!');
+          console.log('Data Submitted!',res);
+          const detail = res.body.data.userDetails;
+          this._us.getdetails( detail);
           this._snackbar.openSuccess('Signup Successful');
           this.router.navigate(['/selection']);
         },
