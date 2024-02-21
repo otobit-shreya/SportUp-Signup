@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.myForm.value, 'fff');
+    // console.log(this.myForm.value, 'fff');
     const phoneVal = this.myForm.getRawValue().mobileNumber.number;
     const dialCode = this.myForm.getRawValue().mobileNumber.dialCode;
     this._cs.getnumber(phoneVal);
@@ -83,7 +83,7 @@ export class LoginComponent implements OnInit {
 
         this.apiService.post(apiUrl, phone).subscribe(
           (response: any) => {
-            console.log('API response:', response);
+            // console.log('API response:', response);
 
             this._cs.getotp(response.body.data);
             // Handle successful response, maybe navigate to the verification page

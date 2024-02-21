@@ -63,20 +63,20 @@ export class PositionsComponent implements OnInit {
       this.gender = currentNavigation.extras.state['gender'];
       this.emailAddress = currentNavigation.extras.state['emailAddress'];
       this.profilePicture = currentNavigation.extras.state['profilePicture'];
-      console.log(
-        this.phoneNumber,
-        this.fullName,
-        this.userHandle,
-        this.dob,
-        this.gender,
-        this.emailAddress,
-        this.profilePicture,
-      );
+      // console.log(
+      //   this.phoneNumber,
+      //   this.fullName,
+      //   this.userHandle,
+      //   this.dob,
+      //   this.gender,
+      //   this.emailAddress,
+      //   this.profilePicture,
+      // );
     }
 
     this.dataSubscription = this._ds.data$.subscribe((data) => {
       this.data = data;
-      console.log(this.data);
+      // console.log(this.data);
     });
   }
 
@@ -86,7 +86,7 @@ export class PositionsComponent implements OnInit {
       .get('https://sportupapi.otobit.com/api/GetSportNameLookups')
       .subscribe(
         (res: any) => {
-          console.log(res.sport_dict, 'API response');
+          // console.log(res.sport_dict, 'API response');
 
           // Assuming res.sport_dict is an object
           const sportDict = res.sport_dict;
@@ -102,7 +102,7 @@ export class PositionsComponent implements OnInit {
             name: key
           }));
 
-          console.log(mappedArray);
+          // console.log(mappedArray);
         },
         (err) => {
           console.log(err);
@@ -115,7 +115,7 @@ export class PositionsComponent implements OnInit {
   onSubmit(): void {
 
     this.spId = this._cs.sid;
-    console.log(this.spId, 'positions');
+    // console.log(this.spId, 'positions');
     
 
     if (!this.sportNameLookupIds) {
@@ -146,19 +146,19 @@ export class PositionsComponent implements OnInit {
         
       };
 
-      console.log(formData, 'formData positions');
+      // console.log(formData, 'formData positions');
 
       // Assuming _apiservice.post method is available in your ApiService
       this._apiservice.post(apiUrl, formData).subscribe(
         (res) => {
-          console.log('Data Submitted!',res);
+          // console.log('Data Submitted!',res);
           const detail = res.body.data.userDetails;
           this._us.getdetails( detail);
           this._snackbar.openSuccess('Signup Successful');
           this.router.navigate(['/selection']);
         },
         (error) => {
-          console.log(error, 'Error in submitting form');
+          // console.log(error, 'Error in submitting form');
           this._snackbar.openError('Signup Failed');
           // alert('Something went wrong ');
         }

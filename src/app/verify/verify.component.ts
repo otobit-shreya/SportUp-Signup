@@ -72,10 +72,10 @@ export class VerifyComponent {
       otp: 'string',
       contactNumber: this.phoneNumber,
     };
-    console.log(this.phoneNumber);
+    // console.log(this.phoneNumber);
     this._apiService.post(apiUrl, phone).subscribe(
       (response: any) => {
-        console.log('API response:', response);
+        // console.log('API response:', response);
         this.sendtp = response.body.data;
       },
       (error) => {
@@ -86,19 +86,19 @@ export class VerifyComponent {
   }
 
   continueClicked() {
-    console.log(this._cs.conatctval);
-    console.log(this._cs.sendp);
+    // console.log(this._cs.conatctval);
+    // console.log(this._cs.sendp);
     const apiUrl = 'api/Player/sign-up/verify-otp';
     const obj = {
       otp: this.sendtp,
       contactNumber: this.phoneNumber,
     };
-    console.log(obj, 'obj');
+    // console.log(obj, 'obj');
     if (this.sendtp === this.otpInput) {
       this.verificationResult = 'OTP verified successfully';
       this._apiService.post(apiUrl, obj).subscribe(
         (res) => {
-          console.log(res);
+          // console.log(res);
           const detail = res.body.data.userDetails;
           this._us.getdetails( detail);
           this.isUser = res.body.data.hasPlayer;

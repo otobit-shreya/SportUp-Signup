@@ -54,12 +54,12 @@ export class SelectionComponent implements OnInit,OnDestroy {
     });   
    this.dataSubscription = this._data.data$.subscribe((data) => {
       this.data = data;
-      console.log(this.data);
+      // console.log(this.data);
     });
 
     this.detailsSubscription = this._detail.data$.subscribe((detail) => {
       this.details = detail;
-      console.log(this.details);
+      // console.log(this.details);
     });
   }
 
@@ -76,7 +76,7 @@ export class SelectionComponent implements OnInit,OnDestroy {
     this.http.get(url).subscribe(
       (res) => {
         this.positions = res;
-        console.log(this.positions);
+        // console.log(this.positions);
       },
       (err) => {
         console.log(err);
@@ -91,7 +91,7 @@ export class SelectionComponent implements OnInit,OnDestroy {
   }
   
   goToFinish(): void {
-    console.log(this.myForm.value);
+    // console.log(this.myForm.value);
     const formValues = this.myForm.value;
     const apiUrl = 'https://sportupapi.otobit.com/api/rosters/addPlayersByCode';
     const data = {
@@ -104,15 +104,15 @@ export class SelectionComponent implements OnInit,OnDestroy {
         courseName: formValues.course,
         year: formValues.batch,
         positionId: parseInt(formValues.position),
-        role: null,
+        role: "Player",
       },
     };
-    console.log(data,'dataaaaa');
+    // console.log(data,'dataaaaa');
     
 
     this.http.post(apiUrl, data).subscribe(
       (response: any) => {
-        console.log('API response:', response);
+        // console.log('API response:', response);
         // this.isUser = response.body.data.isSuccessful;
         // if (this.isUser) {
           this._snackbar.openSuccess('Player added successfully');

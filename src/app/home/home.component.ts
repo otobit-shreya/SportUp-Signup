@@ -35,14 +35,14 @@ export class HomeComponent implements OnInit {
           .subscribe(
             (res: any) => {
               this.data = res.data;
-              console.log(res.data, 'resssss');
+              // console.log(res.data, 'resssss');
 
               const rosterCode = this.rostercode;
               const rosterId = this.data.rosterId;
               const sportId = this.data.sportId;
               const organizationHandle = this.data.organizationHandle;
               this._cs.getnumber(sportId, rosterId, rosterCode,organizationHandle);
-              console.log(sportId, rosterId, rosterCode,organizationHandle);
+              // console.log(sportId, rosterId, rosterCode,organizationHandle);
             },
             (err) => {
               console.log(err);
