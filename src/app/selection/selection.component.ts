@@ -103,7 +103,7 @@ export class SelectionComponent implements OnInit,OnDestroy {
         userHandle: this.details.userHandle,
         courseName: formValues.course,
         year: formValues.batch,
-        position: parseInt(formValues.position),
+        positionId: parseInt(formValues.position),
         role: null,
       },
     };
