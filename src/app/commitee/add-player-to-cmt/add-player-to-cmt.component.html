@@ -17,6 +17,11 @@
           <input formControlName="batchYear" type="text" class="form-control input" placeholder="2023" />
           <div *ngIf="addPlayerForm.get('batchYear')!.invalid && addPlayerForm.get('batchYear')!.touched" class="error">Batch Year is required</div>
         </div>
+        <div class="mt-2">
+          <label class="label">Role/Position in team</label>
+          <input formControlName="role" type="text" class="form-control input" placeholder="Forward, Defender, etc." />
+          <div *ngIf="addPlayerForm.get('role')!.invalid && addPlayerForm.get('role')!.touched" class="error">Role is required</div>
+        </div>
         <button type="submit" class="btn mt-4 btn-block">
           <span class="btn-text">Add Player</span>
         </button>

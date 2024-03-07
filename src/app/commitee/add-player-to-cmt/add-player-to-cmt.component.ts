@@ -49,7 +49,8 @@ export class AddPlayerToCmtComponent implements OnInit{
 ngOnInit(): void {
   this.addPlayerForm = this.formBuilder.group({
     courseName: ['', Validators.required],
-    batchYear: ['', Validators.required]
+    batchYear: ['', Validators.required],
+    role: ['', Validators.required]
   });
 }
 addPlayerToCommittee(): void {
@@ -58,7 +59,7 @@ addPlayerToCommittee(): void {
     userHandle: this.userHandle,
     courseName: this.addPlayerForm.value.courseName,
     batchYear: this.addPlayerForm.value.batchYear,
-    role: 'null',
+    role: this.addPlayerForm.value.role,
   };
   console.log(requestBody,'rrrr');
   
