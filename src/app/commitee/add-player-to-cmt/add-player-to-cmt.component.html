@@ -1,0 +1,26 @@
+<div class="overlay-container">
+  <img src="../../../assets/image_2.png" alt="Image" class="img-fluid" />
+  
+  <div class="card main overlay-card">
+    <form [formGroup]="addPlayerForm" (ngSubmit)="addPlayerToCommittee()">
+      <div class="card-body">
+        <div class="mt-2 text-center">
+          <h2>Add Player To Committee</h2>
+        </div>
+        <div class="mt-2">
+          <label class="label">Course Name</label>
+          <input formControlName="courseName" type="text" class="form-control input" placeholder="MBA" />
+          <div *ngIf="addPlayerForm.get('courseName')!.invalid && addPlayerForm.get('courseName')!.touched" class="error">Course Name is required</div>
+        </div>
+        <div class="mt-2">
+          <label class="label">Batch Year</label>
+          <input formControlName="batchYear" type="text" class="form-control input" placeholder="2023" />
+          <div *ngIf="addPlayerForm.get('batchYear')!.invalid && addPlayerForm.get('batchYear')!.touched" class="error">Batch Year is required</div>
+        </div>
+        <button type="submit" class="btn mt-4 btn-block">
+          <span class="btn-text">Add Player</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

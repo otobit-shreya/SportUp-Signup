@@ -1,0 +1,26 @@
+<div class="overlay-container">
+    <img src="../../../assets/image_2.png" alt="Image" class="img-fluid" />
+  <div class="card main overlay-card">
+    <div class="card-body">
+      <div>
+        <p class="heading">You are invited to join a Commitee</p>
+        <p class="text">
+          {{data.organizationName}} {{data.committee_Year}} <br>
+          {{data.organizationUserHandle}}
+        </p>
+        <p class="text">
+          Login / Signup to Join Commitee
+        </p>
+        <div style="display: flex;">
+          <button class="btn" (click)="onLogin()">
+            <span class="btn-text">Login</span>
+          </button>
+          <button class="btn" (click)="onSignUp()">
+            <span class="btn-text">Signup</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  

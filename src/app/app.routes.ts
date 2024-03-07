@@ -10,6 +10,8 @@ import { CongratulationComponent } from './congratulation/congratulation.compone
 import { SelectionComponent } from './selection/selection.component';
 import { EnterdetailComponent } from './enterdetail/enterdetail.component';
 import { PositionsComponent } from './positions/positions.component';
+import { CommiteeHomeComponent } from './commitee/commitee-home/commitee-home.component';
+import { AddPlayerToCmtComponent } from './commitee/add-player-to-cmt/add-player-to-cmt.component';
  
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -24,7 +26,9 @@ export const routes: Routes = [
   { path: 'selection', component: SelectionComponent },
   { path: 'details',component:MainComponent },
   { path: 'positions',component:PositionsComponent },
-  { path: 'congratulation',component:CongratulationComponent }
+  { path: 'congratulation',component:CongratulationComponent },
+  { path: 'commitee/home',component:CommiteeHomeComponent},
+  { path: 'commitee/addplayer', component:AddPlayerToCmtComponent}
 ];
  
 export const AppRoutingModule = RouterModule.forRoot(routes);

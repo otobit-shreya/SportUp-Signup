@@ -121,8 +121,6 @@ export class PositionsComponent implements OnInit {
     if (!this.sportNameLookupIds) {
       this.sportNameLookupIds = [];
     }
-    
-
 
     const selected = this.selectedSports();
     if (selected.length >= 3) {
@@ -148,14 +146,28 @@ export class PositionsComponent implements OnInit {
 
       console.log(formData, 'formData positions');
 
-      // Assuming _apiservice.post method is available in your ApiService
+
       this._apiservice.post(apiUrl, formData).subscribe(
         (res) => {
           console.log('Data Submitted!',res);
           const detail = res.body.data.userDetails;
           this._us.getdetails( detail);
           this._snackbar.openSuccess('Signup Successful');
-          this.router.navigate(['/selection']);
+          // Check local storage for rosterCode             
+          const rosterCode = localStorage.getItem('rosterCode');
+          if (rosterCode) {
+            this._snackbar.openSuccess('Login successful');
+            this.router.navigate(['/selection'], { skipLocationChange: true });
+            return; // Exit the method after redirection
+          }
+          
+          // Check local storage for cid
+          const cid = localStorage.getItem('cid');
+          if (cid) {
+            this.router.navigate(['/commitee/addplayer']);
+            return; // Exit the method after redirection
+          }
+          // this.router.navigate(['/selection']);
         },
         (error) => {
           console.log(error, 'Error in submitting form');
