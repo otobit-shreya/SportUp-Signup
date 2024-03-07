@@ -37,13 +37,13 @@ export class AddPlayerToCmtComponent implements OnInit{
   ) {
   this.detailsSubscription = this._detail.data$.subscribe((detail) => {
     this.details = detail;
-    console.log(this.details);
+    // console.log(this.details);
   });
   this.userHandle = this.details.userHandle;
-  console.log(this.userHandle,'suuvv');
+  // console.log(this.userHandle,'suuvv');
    this.cid =this._cmservice.csid
    this.cyear = this._cmservice.csyear
-   console.log(this.cid, this.cyear,'dfsdfsd');
+  //  console.log(this.cid, this.cyear,'dfsdfsd');
 }
 
 ngOnInit(): void {
@@ -66,7 +66,7 @@ addPlayerToCommittee(): void {
   .post(`https://sportupapi.otobit.com/api/Committee/addplayerToCommitteeByQR?committeeId=${this.cid}`,requestBody)
   .subscribe((response: any) => {
     // Handle success response
-    console.log('Player added successfully:', response);
+    // console.log('Player added successfully:', response);
     this._snackbar.openSuccess('Player added to commitee successfully');
     // Redirect or show a success message
     this.router.navigate(['/congratulation'], { queryParams: { word: 'Committee' } });

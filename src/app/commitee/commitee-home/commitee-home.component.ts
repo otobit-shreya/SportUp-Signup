@@ -22,7 +22,7 @@ export class CommiteeHomeComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       this.cid = params['cid'];
-      console.log(this.cid);
+      // console.log(this.cid);
       if (this.cid) {
         const existingRosterCode = localStorage.getItem('rosterCode');
         if (existingRosterCode) {
@@ -35,14 +35,14 @@ export class CommiteeHomeComponent implements OnInit {
             `https://sportupapi.otobit.com/api/Committee/GetCommitteeById?committeeId=${this.cid}`
           )
           .subscribe((res: any) => {
-            console.log(res);
+            // console.log(res);
             this.data = res.data;
             const cmid = this.cid;
             const cmyear = res.data.committee_Year;
             const orgname = res.data.organizationName;
             const orgid = res.data.organizationId;
             const orghandle = res.data.organizationUserHandle;
-            console.log(cmid, cmyear, orgname, orgid, orghandle);
+            // console.log(cmid, cmyear, orgname, orgid, orghandle);
             this._cmservice.getdata(cmid,cmyear);
           });
       } else {
