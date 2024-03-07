@@ -1,0 +1,75 @@
+.overlay-container {
+    position: relative;
+    height: 100%;
+}
+
+.overlay-card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 400px;
+    width: 90%;
+    /* Adjust as needed */
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.80);
+}
+.input{
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.40);
+    background-color: transparent;
+}
+img {
+    width: 100%;
+    height: 100%;
+}
+
+.heading-text {
+    font-family: Roboto;
+    font-size: 20px;
+    color: var(--text-colour, #424753);
+
+}
+.sub-head {
+    font-family: Roboto;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.btn {
+    margin-top: 10px;
+    display: flex;
+    padding: 10px 132px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex: 1 0 0;
+    align-self: stretch;
+    border-radius: 5px;
+    background: var(--main-color-20, #ffbe12);
+}
+
+.btn-text {
+    color: var(--text-colour, #424753);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
+}
+
+.profile {
+    width: 55px;
+    border-radius: 5px;
+    border: 1px solid #7b7d80;
+
+}
+
+.name {
+    color: var(--181717, #181717);
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    margin-bottom: 0 !important;
+}

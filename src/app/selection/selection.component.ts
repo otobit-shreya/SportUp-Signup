@@ -117,7 +117,7 @@ export class SelectionComponent implements OnInit,OnDestroy {
         // if (this.isUser) {
           this._snackbar.openSuccess('Player added successfully');
           // alert('Player detail added successfully');
-          this.router.navigate(['/congratulation']);
+          this.router.navigate(['/congratulation'], { queryParams: { word: 'team' }});
         // } else {
           // alert('Player detail added failed');
         // }

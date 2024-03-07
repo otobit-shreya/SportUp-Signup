@@ -28,6 +28,11 @@ export class HomeComponent implements OnInit {
       this.rostercode = params['rosterCode'];
 
       if (this.rostercode) {
+        const existingcid = localStorage.getItem('cid');
+        if (existingcid) {
+          localStorage.removeItem('cid');
+        }
+        localStorage.setItem('rosterCode', this.rostercode);
         this.http
           .get(
             `https://sportupapi.otobit.com/api/rosters/getRosterByCode/${this.rostercode}`

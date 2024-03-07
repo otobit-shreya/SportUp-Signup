@@ -103,8 +103,22 @@ export class VerifyComponent {
           this._us.getdetails( detail);
           this.isUser = res.body.data.hasPlayer;
           if (this.isUser === true) {
+             // Check local storage for rosterCode             
+          const rosterCode = localStorage.getItem('rosterCode');
+          if (rosterCode) {
             this._snackbar.openSuccess('Login successful');
-            this.router.navigate(['/selection'],{ skipLocationChange: true });
+            this.router.navigate(['/selection'], { skipLocationChange: true });
+            return; // Exit the method after redirection
+          }
+          
+          // Check local storage for cid
+          const cid = localStorage.getItem('cid');
+          if (cid) {
+            this.router.navigate(['/commitee/addplayer']);
+            return; // Exit the method after redirection
+          }
+            // this._snackbar.openSuccess('Login successful');
+            // this.router.navigate(['/selection'],{ skipLocationChange: true });
           } else if (this.isUser === false) {
             this.router.navigate(['/details']);
           }
