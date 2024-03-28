@@ -100,6 +100,8 @@ export class SelectionComponent implements OnInit,OnDestroy {
       player: {
         profilePicture: this.details.profilePicture,
         fullName: this.details.fullName,
+        firstName: this.details.firstName,
+        lastName: this.details.lastName,
         userHandle: this.details.userHandle,
         courseName: formValues.course,
         year: formValues.batch,

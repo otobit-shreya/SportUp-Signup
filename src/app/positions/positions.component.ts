@@ -32,6 +32,8 @@ interface Sport {
 export class PositionsComponent implements OnInit {
   phoneNumber: number = 0;
   fullName: string = '';
+  firstName: string = '';
+  lastName: string = '';
   userHandle: string = '';
   dob: string = '';
   gender: any = {};
@@ -58,6 +60,8 @@ export class PositionsComponent implements OnInit {
     if (currentNavigation?.extras.state) {
       this.phoneNumber = currentNavigation.extras.state['phoneNumber'];
       this.fullName = currentNavigation.extras.state['fullName'];
+      this.firstName = currentNavigation.extras.state['firstName'];
+      this.lastName = currentNavigation.extras.state['lastName'];
       this.userHandle = currentNavigation.extras.state['userHandle'];
       this.dob = currentNavigation.extras.state['dob'];
       this.gender = currentNavigation.extras.state['gender'];
@@ -134,6 +138,8 @@ export class PositionsComponent implements OnInit {
       const formData = {
         phoneNumber: this.phoneNumber,
         fullName: this.fullName,
+        firstName: this.firstName,
+        lastName: this.lastName,
         userHandle: this.userHandle,
         sportId:this.spId,
         sportNameLookupIds: this.sportNameLookupIds,

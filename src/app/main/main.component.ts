@@ -39,6 +39,8 @@ export class MainComponent implements OnInit {
     // Initialize the form in the constructor
     this.myForm = this.formBuilder.group({
       fullName: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
       userHandle: [''],
       dob: ['', Validators.required],
       gender: ['', Validators.required],
@@ -84,6 +86,8 @@ export class MainComponent implements OnInit {
   goToProfile() {
     if (this.myForm.valid) {
       const fullName = this.myForm.getRawValue().fullName;
+      const firstName = this.myForm.getRawValue().firstName;
+      const lastName = this.myForm.getRawValue().lastName;
       const userHandle = this.myForm.getRawValue().userHandle;
       const dob = this.myForm.getRawValue().dob;
       const emailAddress = this.myForm.getRawValue().emailAddress;
@@ -97,7 +101,7 @@ export class MainComponent implements OnInit {
 
       // this._ds.getdata(phoneNumber,fullName,userHandle,dob,gender,emailAddress);
       this.router.navigate(['/profile'], {
-        state: { phoneNumber, fullName, userHandle, dob, gender, emailAddress },
+        state: { phoneNumber, fullName,firstName,lastName, userHandle, dob, gender, emailAddress },
       });
     } else {
       alert('Form is invalid');

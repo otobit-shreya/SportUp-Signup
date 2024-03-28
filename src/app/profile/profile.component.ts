@@ -15,6 +15,8 @@ export class ProfileComponent implements OnInit {
 
   phoneNumber: number = 0;
   fullName: string = '';
+  firstName: string = '';
+  lastName: string = '';
   userHandle: string = '';
   dob: string = '';
   gender: any = {};
@@ -26,11 +28,13 @@ export class ProfileComponent implements OnInit {
     if(currentNavigation?.extras.state){
       this.phoneNumber = currentNavigation.extras.state['phoneNumber'];
       this.fullName = currentNavigation.extras.state['fullName'];
+      this.firstName = currentNavigation.extras.state['firstName'];
+      this.lastName = currentNavigation.extras.state['lastName'];
       this.userHandle = currentNavigation.extras.state['userHandle'];
       this.dob = currentNavigation.extras.state['dob'];
       this.gender = currentNavigation.extras.state['gender'];
       this.emailAddress = currentNavigation.extras.state['emailAddress'];
-      console.log(this.phoneNumber,this.fullName,this.userHandle,this.dob,this.gender,this.emailAddress);
+      console.log(this.phoneNumber,this.fullName,this.firstName,this.lastName,this.userHandle,this.dob,this.gender,this.emailAddress);
       
       
     }
@@ -72,6 +76,8 @@ export class ProfileComponent implements OnInit {
    
       this.router.navigate(['/positions'],{state:{phoneNumber: this.phoneNumber,
         fullName: this.fullName,
+        firstName: this.firstName,
+        lastName: this.lastName,
         userHandle: this.userHandle,
         dob: this.dob,
         gender: this.gender,
