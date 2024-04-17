@@ -11,7 +11,7 @@ import { Router, RouterLink } from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
   @ViewChild('fileInput') fileInput!: ElementRef;
-  imageUrl: string = 'assets/profile.png'; // Default image URL
+  imageUrl: string = ''; // Default image URL
 
   phoneNumber: number = 0;
   fullName: string = '';
@@ -70,7 +70,7 @@ export class ProfileComponent implements OnInit {
   }
 
   imageSelect(event:any) {
-    // console.log(event, 'eeee');
+    console.log(this.imageUrl, 'eeee');
 
     const profilePicture= this.imageUrl
    

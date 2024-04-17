@@ -26,6 +26,7 @@ export class MainComponent implements OnInit {
   phoneNumber: any = '';
   today: string;
   genderData: any;
+  usernameAvailability: boolean | null = null; 
 
   constructor(
     private router: Router,
@@ -39,9 +40,7 @@ export class MainComponent implements OnInit {
     // Initialize the form in the constructor
     this.myForm = this.formBuilder.group({
       fullName: ['', Validators.required],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      userHandle: [''],
+      userHandle: ['',Validators.required],
       dob: ['', Validators.required],
       gender: ['', Validators.required],
       emailAddress: [''],
@@ -71,6 +70,25 @@ export class MainComponent implements OnInit {
       );
   }
 
+  // Function to check username availability
+  checkUsernameAvailability() {
+    const username = this.myForm.get('userHandle')?.value;
+    if (username) {
+      this.http.get(`https://sportupapi.otobit.com/api/User/CheckUsernameAvailability?userhandle=${username}`)
+        .subscribe(
+          (res: any) => {
+            this.usernameAvailability = res.isAvailable;
+          },
+          (error) => {
+            console.log('Error checking username availability');
+            this.usernameAvailability = null;
+          }
+        );
+    } else {
+      this.usernameAvailability = null;
+    }
+  }
+
   // dateBeforeTodayValidator() {
   //   return (control: any) => {
   //     const selectedDate = new Date(control.value);
@@ -86,22 +104,22 @@ export class MainComponent implements OnInit {
   goToProfile() {
     if (this.myForm.valid) {
       const fullName = this.myForm.getRawValue().fullName;
-      const firstName = this.myForm.getRawValue().firstName;
-      const lastName = this.myForm.getRawValue().lastName;
+      const [firstName, ...lastNameArray] = fullName.split(' ');
+      const lastName = lastNameArray.join(' ');
+      
       const userHandle = this.myForm.getRawValue().userHandle;
       const dob = this.myForm.getRawValue().dob;
       const emailAddress = this.myForm.getRawValue().emailAddress;
       const gender = {
         id: Number(this.myForm.getRawValue().gender),
-        text:
-          Number(this.myForm.getRawValue().gender) === 3 ? 'Male' : 'Female',
+        text: Number(this.myForm.getRawValue().gender) === 3 ? 'Male' : 'Female',
       };
-
+  
       const phoneNumber = this.phoneNumber;
-
-      // this._ds.getdata(phoneNumber,fullName,userHandle,dob,gender,emailAddress);
+  console.log(fullName,firstName,lastName,userHandle,phoneNumber,dob,emailAddress,gender);
+  
       this.router.navigate(['/profile'], {
-        state: { phoneNumber, fullName,firstName,lastName, userHandle, dob, gender, emailAddress },
+        state: { phoneNumber, fullName, firstName, lastName, userHandle, dob, gender, emailAddress },
       });
     } else {
       alert('Form is invalid');

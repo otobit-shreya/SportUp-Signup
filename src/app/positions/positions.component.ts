@@ -9,6 +9,7 @@ import { CodeService } from '../service/code.service';
 import { Subscription } from 'rxjs';
 import { snackbarService } from '../service/snackbar.service';
 import { UserService } from '../service/user.service';
+import { commiteeService } from '../service/commitee.service';
 // import {MatChipsModule} from '@angular/material/chips';
 
 interface Sport {
@@ -44,6 +45,8 @@ export class PositionsComponent implements OnInit {
   sportNameLookupIds: any = [];
   spId:any;
   rosterId:any;
+  cyear: any;
+  cid:any;
 
   private dataSubscription: Subscription;
 
@@ -55,6 +58,7 @@ export class PositionsComponent implements OnInit {
     private _cs: CodeService,
     private _snackbar: snackbarService,
     private _us: UserService,
+    private _cmtService: commiteeService
   ) {
     const currentNavigation = this.router.getCurrentNavigation();
     if (currentNavigation?.extras.state) {
@@ -77,7 +81,8 @@ export class PositionsComponent implements OnInit {
       //   this.profilePicture,
       // );
     }
-
+    this.cyear = this._cmtService.csyear;
+    this.cid = this._cmtService.csid;
     this.dataSubscription = this._ds.data$.subscribe((data) => {
       this.data = data;
       // console.log(this.data);
@@ -150,6 +155,30 @@ export class PositionsComponent implements OnInit {
         
       };
 
+      const Data = {
+        rosterCode: this._cs.rcode,
+        orgUserHandle: this._cs.orghand,
+        player:{
+          profilePicture: this.profilePicture,
+          fullName: this.fullName,
+          firstName: this.firstName,
+          lastName: this.lastName,
+          userHandle: this.userHandle,
+          courseName: null,
+          year: null,
+          positionId: null,
+          role: "Player"
+        }
+      }
+
+      const cmtData = {
+        committee_Year : this.cyear,
+        userHandle: this.userHandle,
+        courseName: null,
+        batchYear: null,
+        role: null
+      }
+
       // console.log(formData, 'formData positions');
 
 
@@ -163,14 +192,17 @@ export class PositionsComponent implements OnInit {
           const rosterCode = localStorage.getItem('rosterCode');
           if (rosterCode) {
             this._snackbar.openSuccess('Login successful');
-            this.router.navigate(['/selection'], { skipLocationChange: true });
+            this.http.post('https://sportupapi.otobit.com/api/rosters/addPlayersByCode',Data).subscribe((res:any)=>{
+            })
+            this.router.navigate(['/congratulation'], { queryParams: { word: 'team' }});
             return; // Exit the method after redirection
           }
           
           // Check local storage for cid
           const cid = localStorage.getItem('cid');
           if (cid) {
-            this.router.navigate(['/commitee/addplayer']);
+            this.http.post(`https://sportupapi.otobit.com/api/Committee/addplayerToCommitteeByQR?committeeId=${this.cid}`,cmtData).subscribe((res:any)=>{})
+            this.router.navigate(['/congratulation'], { queryParams: { word: 'Committee' } });
             return; // Exit the method after redirection
           }
           // this.router.navigate(['/selection']);
@@ -181,6 +213,8 @@ export class PositionsComponent implements OnInit {
           // alert('Something went wrong ');
         }
       );
+
+      
     } else {
       alert('Please select at least 3 sports.');
     }

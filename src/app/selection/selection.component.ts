@@ -48,8 +48,8 @@ export class SelectionComponent implements OnInit,OnDestroy {
     private _cs : CodeService
   ) {
     this.myForm = this.fb.group({
-      course: ['MBA', Validators.required],
-      batch: ['2023', Validators.required],
+      course: ['', Validators.required],
+      batch: ['', Validators.required],
       position: [null, Validators.required],
     });   
    this.dataSubscription = this._data.data$.subscribe((data) => {

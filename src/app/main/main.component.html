@@ -1,5 +1,5 @@
 <div class="overlay-container">
-    <img src="assets/image_2.png" alt="Image"  class="img-fluid">
+    <img src="assets/image_2.png" alt="Image" class="img-fluid">
 
     <div class="card main overlay-card">
         <div class="card-body">
@@ -9,46 +9,35 @@
                 </div>
                 <div class="mt-4">
                     <label class="label">Full Name</label>
-                    <input type="text" name="fullName" ngModel required class="form-control input"
+                    <input type="text" name="fullName" class="form-control input"
                         placeholder="Full Name" formControlName="fullName" />
                 </div>
                 <div class="mt-2">
-                    <label class="label">First Name</label>
-                    <input type="text" name="firstName" ngModel required class="form-control input"
-                        placeholder="First Name" formControlName="firstName" />
-                </div>
-                <div class="mt-2 ">
-                    <label class="label">Last Name</label>
-                    <input type="text" name="lastName" ngModel required class="form-control input"
-                        placeholder="Last Name" formControlName="lastName" />
-                </div>
-                <div class="mt-2">
                     <label class="label">User Name</label>
-                    <input type="text" name="userName" ngModel class="form-control input"
-                        placeholder="User Name" formControlName="userHandle"/>
+                    <input type="text" name="userName" class="form-control input"
+                        placeholder="User Name" formControlName="userHandle" (keyup)="checkUsernameAvailability()">
+                    <div *ngIf="usernameAvailability === true" class="text-success">Username is available</div>
+                    <div *ngIf="usernameAvailability === false" class="text-danger">Username is not available</div>
+                    <!-- <div *ngIf="usernameAvailability === null" class="text-muted">Checking username availability...</div> -->
                 </div>
                 <div class="mt-2">
-                    <label class="label">Date of birth</label>
-                    <input type="date" name="birthday" required ngModel class="form-control input" formControlName="dob" max="{{ today | date:'yyyy-MM-dd' }}">
-                    <!-- <div *ngIf="myForm.get('dob')?.hasError('dateBeforeToday') && myForm.get('dob')?.touched">
-                        Date is invalid.
-                      </div> -->
+                    <label class="label">Date of Birth</label>
+                    <input type="date" name="birthday" class="form-control input" formControlName="dob" max="{{ today | date:'yyyy-MM-dd' }}">
                 </div>
                 <div class="mt-2">
                     <label class="label">Gender</label>
-                   
-                    <select name="gender" required class="form-control input" formControlName="gender">
+                    <select name="gender" class="form-control input" formControlName="gender">
                         <option value="" selected>Gender</option>
                         <option *ngFor="let gender of genderData" [value]="gender.commonFixedLookupId">
                           {{ gender.fixedLookUpName }}
                         </option>
-                      </select>
+                    </select>
                 </div>
                 <div class="mt-2">
-                    <label class="label">Email Address</label>(Optional)
-                    <input type="text" name="email" ngModel class="form-control input" formControlName="emailAddress">
+                    <label class="label">Email Address (Optional)</label>
+                    <input type="text" name="email" class="form-control input" formControlName="emailAddress">
                 </div>
-                <button type="submit" class="btn mt-4 btn-block" [disabled]="userForm.invalid" (click)="goToProfile()">
+                <button type="submit" class="btn mt-4 btn-block" [disabled]="myForm.invalid">
                     <span class="btn-text">CONTINUE</span>
                 </button>
             </form>
