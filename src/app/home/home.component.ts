@@ -52,8 +52,8 @@ export class HomeComponent implements OnInit {
               // console.log(sportId, rosterId, rosterCode,organizationHandle);
             },
             (err) => {
-              // console.log(err);
-              this._snack.openError('Something went wrong')
+              console.log(err);
+              // this._snack.openError('Something went wrong')
             }
           );
       } else {
