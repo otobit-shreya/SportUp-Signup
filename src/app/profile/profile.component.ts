@@ -34,7 +34,7 @@ export class ProfileComponent implements OnInit {
       this.dob = currentNavigation.extras.state['dob'];
       this.gender = currentNavigation.extras.state['gender'];
       this.emailAddress = currentNavigation.extras.state['emailAddress'];
-      console.log(this.phoneNumber,this.fullName,this.firstName,this.lastName,this.userHandle,this.dob,this.gender,this.emailAddress);
+      // console.log(this.phoneNumber,this.fullName,this.firstName,this.lastName,this.userHandle,this.dob,this.gender,this.emailAddress);
       
       
     }
@@ -70,7 +70,7 @@ export class ProfileComponent implements OnInit {
   }
 
   imageSelect(event:any) {
-    console.log(this.imageUrl, 'eeee');
+    // console.log(this.imageUrl, 'eeee');
 
     const profilePicture= this.imageUrl
    

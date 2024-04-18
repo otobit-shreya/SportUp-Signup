@@ -80,7 +80,8 @@ export class VerifyComponent {
       },
       (error) => {
         // Handle API error response
-        console.error('API error:', error);
+        // console.error('API error:', error);
+        this._snackbar.openError('Something went wrong');
       }
     );
   }
@@ -125,7 +126,7 @@ export class VerifyComponent {
         },
         (error) => {
           this._snackbar.openError('Something went wrong');
-          console.log(error, 'Error in submitting form');
+          // console.log(error, 'Error in submitting form');
         }
       );
     } else {

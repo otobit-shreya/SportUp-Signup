@@ -75,7 +75,7 @@ addPlayerToCommittee(): void {
   },
   (error) => {
     // Handle error response
-    console.error('Error adding player:', error);
+    // console.error('Error adding player:', error);
     this._snackbar.openError('Player already exist in commitee');
   }
 );

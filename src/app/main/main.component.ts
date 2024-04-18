@@ -12,6 +12,7 @@ import { ApiService } from '../service/api.service';
 import { ContactService } from '../service/contact.service';
 import { CommonModule } from '@angular/common';
 import { DataService } from '../service/data.service';
+import { snackbarService } from '../service/snackbar.service';
 
 @Component({
   selector: 'app-main',
@@ -35,7 +36,8 @@ export class MainComponent implements OnInit {
     private formBuilder: FormBuilder,
     private _apiservice: ApiService,
     private _cs: ContactService,
-    private _ds: DataService
+    private _ds: DataService,
+    private _snack: snackbarService
   ) {
     // Initialize the form in the constructor
     this.myForm = this.formBuilder.group({
@@ -65,7 +67,8 @@ export class MainComponent implements OnInit {
           this.genderData = res.data;
         },
         (error) => {
-          console.log('Error');
+          // console.log('Error');
+          this._snack.openError('Something went wrong')
         }
       );
   }
@@ -80,7 +83,8 @@ export class MainComponent implements OnInit {
             this.usernameAvailability = res.isAvailable;
           },
           (error) => {
-            console.log('Error checking username availability');
+            // console.log('Error checking username availability');
+            this._snack.openError('Error checking username availability')
             this.usernameAvailability = null;
           }
         );
@@ -116,7 +120,7 @@ export class MainComponent implements OnInit {
       };
   
       const phoneNumber = this.phoneNumber;
-  console.log(fullName,firstName,lastName,userHandle,phoneNumber,dob,emailAddress,gender);
+  // console.log(fullName,firstName,lastName,userHandle,phoneNumber,dob,emailAddress,gender);
   
       this.router.navigate(['/profile'], {
         state: { phoneNumber, fullName, firstName, lastName, userHandle, dob, gender, emailAddress },

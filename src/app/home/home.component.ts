@@ -2,6 +2,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { CodeService } from '../service/code.service';
+import { snackbarService } from '../service/snackbar.service';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +21,8 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private http: HttpClient,
     private route: ActivatedRoute,
-    private _cs: CodeService
+    private _cs: CodeService,
+    private _snack: snackbarService
   ) {}
   ngOnInit(): void {
     // Subscribe to query parameters
@@ -50,11 +52,13 @@ export class HomeComponent implements OnInit {
               // console.log(sportId, rosterId, rosterCode,organizationHandle);
             },
             (err) => {
-              console.log(err);
+              // console.log(err);
+              this._snack.openError('Something went wrong')
             }
           );
       } else {
-        console.log('Roster code not found in the URL');
+        // console.log('Roster code not found in the URL');
+        this._snack.openError('Something went wrong');
         // Handle the case where roster code is not available in the URL
       }
     });

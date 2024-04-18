@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 import { commiteeService } from '../../service/commitee.service';
+import { snackbarService } from '../../service/snackbar.service';
 
 @Component({
   selector: 'app-commitee-home',
@@ -16,7 +17,8 @@ export class CommiteeHomeComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private http: HttpClient,
-    private _cmservice: commiteeService
+    private _cmservice: commiteeService,
+    private snackbarService: snackbarService
   ) {}
 
   ngOnInit(): void {
@@ -46,7 +48,8 @@ export class CommiteeHomeComponent implements OnInit {
             this._cmservice.getdata(cmid,cmyear);
           });
       } else {
-        console.log('Commitee not found in the URL');
+        // console.log('Commitee not found in the URL');
+        this.snackbarService.openError('Something went wrong');
         // Handle the case where committee ID is not available in the URL
       }
     });

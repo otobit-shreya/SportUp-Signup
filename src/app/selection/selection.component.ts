@@ -126,7 +126,7 @@ export class SelectionComponent implements OnInit,OnDestroy {
       },
       (error) => {
         // Handle API error response
-        console.error('API error:', error);
+        // console.error('API error:', error);
         this._snackbar.openError('Something went wrong');
 
       }
