@@ -48,7 +48,7 @@ export class CommiteeHomeComponent implements OnInit {
             this._cmservice.getdata(cmid,cmyear);
           });
       } else {
-        // console.log('Commitee not found in the URL');
+        console.log('Commitee id not found in the URL');
         this.snackbarService.openError('Something went wrong');
         // Handle the case where committee ID is not available in the URL
       }
