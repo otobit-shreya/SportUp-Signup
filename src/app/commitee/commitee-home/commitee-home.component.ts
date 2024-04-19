@@ -49,7 +49,7 @@ export class CommiteeHomeComponent implements OnInit {
           });
       } else {
         console.log('Commitee id not found in the URL');
-        // this.snackbarService.openError('Something went wrong');
+        this.snackbarService.openError('Commitee id not found in the URL');
         // Handle the case where committee ID is not available in the URL
       }
     });
