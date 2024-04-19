@@ -4,9 +4,11 @@ import { Injectable } from "@angular/core";
 export class commiteeService {
     csid:any;
     csyear:any;
+    bl:any;
 
-    getdata(cid:any,cyear:any){
+    getdata(cid:any,cyear:any,bl:any){
         this.csid=cid;
         this.csyear=cyear;
+        this.bl=bl;
     }
 }

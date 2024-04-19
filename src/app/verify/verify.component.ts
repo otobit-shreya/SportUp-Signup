@@ -23,6 +23,9 @@ import { CommonModule } from '@angular/common';
 import { ContactService } from '../service/contact.service';
 import { UserService } from '../service/user.service';
 import { snackbarService } from '../service/snackbar.service';
+import { CodeService } from '../service/code.service';
+import { HttpClient } from '@angular/common/http';
+import { commiteeService } from '../service/commitee.service';
 @Component({
   selector: 'app-verify',
   standalone: true,
@@ -35,6 +38,13 @@ import { snackbarService } from '../service/snackbar.service';
 export class VerifyComponent {
   @ViewChild('countdown', { static: false }) countdown!: CountdownComponent;
   otpInput = '';
+  profilePicture: string = '';
+  fullName: string = '';
+  firstName: string = '';
+  lastName: string = '';
+  userHandle: string = '';
+  cyear: any;
+  cid:any;
   phoneNumber: any = '';
   dialNum: any = '';
   sendtp: any = '';
@@ -52,11 +62,16 @@ export class VerifyComponent {
     private cdr: ChangeDetectorRef,
     private _cs: ContactService,
     private _us: UserService,
-    private _snackbar: snackbarService
+    private _snackbar: snackbarService,
+    private _code : CodeService,
+    private http: HttpClient,
+    private _cmtService: commiteeService
   ) {
     this.phoneNumber = this._cs.conatctval;
     this.dialNum = this._cs.dial;
     this.sendtp = this._cs.sendp;
+    this.cyear = this._cmtService.csyear;
+    this.cid = this._cmtService.csid;
   }
 
   handleCountdownEvents(event: CountdownEvent): void {
@@ -87,6 +102,10 @@ export class VerifyComponent {
   }
 
   continueClicked() {
+
+
+    
+
     // console.log(this._cs.conatctval);
     // console.log(this._cs.sendp);
     const apiUrl = 'api/Player/sign-up/verify-otp';
@@ -99,23 +118,56 @@ export class VerifyComponent {
       this.verificationResult = 'OTP verified successfully';
       this._apiService.post(apiUrl, obj).subscribe(
         (res) => {
-          // console.log(res);
+          this.profilePicture = res.body.data.userDetails.profilePicture;
+          this.fullName = res.body.data.userDetails.fullName;
+          this.firstName = res.body.data.userDetails.firstName;
+          this.lastName = res.body.data.userDetails.lastName;
+          this.userHandle = res.body.data.userDetails.userHandle;
+          // console.log(res.body.data.userDetails.fullName,'rrrr');
+          const Data = {
+            rosterCode: this._code.rcode,
+            orgUserHandle: this._code.orghand,
+            player:{
+              profilePicture: this.profilePicture,
+              fullName: this.fullName,
+              firstName: this.firstName,
+              lastName: this.lastName,
+              userHandle: this.userHandle,
+              courseName: null,
+              year: null,
+              positionId: null,
+              role: "Player"
+            }
+          }
+      
+          const cmtData = {
+            committee_Year : this.cyear,
+            userHandle: this.userHandle,
+            courseName: null,
+            batchYear: null,
+            role: null
+          }
+          // console.log(Data,'dddd');
           const detail = res.body.data.userDetails;
-          this._us.getdetails( detail);
+          this._us.getdetails(detail);
           this.isUser = res.body.data.hasPlayer;
           if (this.isUser === true) {
              // Check local storage for rosterCode             
           const rosterCode = localStorage.getItem('rosterCode');
           if (rosterCode) {
+            this.http.post('https://sportupapi.otobit.com/api/rosters/addPlayersByCode',Data).subscribe((res:any)=>{
+            })
+            this.router.navigate(['/congratulation'], { queryParams: { word: 'team' }});
             this._snackbar.openSuccess('Login successful');
-            this.router.navigate(['/selection'], { skipLocationChange: true });
             return; // Exit the method after redirection
           }
           
           // Check local storage for cid
           const cid = localStorage.getItem('cid');
           if (cid) {
-            this.router.navigate(['/commitee/addplayer']);
+            this.http.post(`https://sportupapi.otobit.com/api/Committee/addplayerToCommitteeByQR?committeeId=${this.cid}`,cmtData).subscribe((res:any)=>{})
+            this.router.navigate(['/congratulation'], { queryParams: { word: 'Committee' } });
+            this._snackbar.openSuccess('Login successful');
             return; // Exit the method after redirection
           }
             // this._snackbar.openSuccess('Login successful');

@@ -14,6 +14,7 @@ import { snackbarService } from '../service/snackbar.service';
 export class HomeComponent implements OnInit {
   public data: any;
   rostercode: any;
+  bl: any;
   rosterId: any;
   sportId: any;
   orgHan: any;
@@ -28,6 +29,8 @@ export class HomeComponent implements OnInit {
     // Subscribe to query parameters
     this.route.queryParams.subscribe((params) => {
       this.rostercode = params['rosterCode'];
+      this.bl = params['bl'];
+      console.log(this.bl, 'bl');
 
       if (this.rostercode) {
         const existingcid = localStorage.getItem('cid');
@@ -46,10 +49,11 @@ export class HomeComponent implements OnInit {
 
               const rosterCode = this.rostercode;
               const rosterId = this.data.rosterId;
+              const bl = this.bl;
               const sportId = this.data.sportId;
               const organizationHandle = this.data.organizationHandle;
-              this._cs.getnumber(sportId, rosterId, rosterCode,organizationHandle);
-              // console.log(sportId, rosterId, rosterCode,organizationHandle);
+              this._cs.getnumber(sportId, rosterId,bl, rosterCode,organizationHandle);
+              // console.log(sportId,bl, rosterId, rosterCode,organizationHandle);
             },
             (err) => {
               console.log(err);
@@ -59,7 +63,6 @@ export class HomeComponent implements OnInit {
       } else {
         console.log('Roster code not found in the URL');
         // this._snack.openError('Roster code not found in the URL');
-        // Handle the case where roster code is not available in the URL
       }
     });
   }

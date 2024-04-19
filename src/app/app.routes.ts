@@ -28,7 +28,9 @@ export const routes: Routes = [
   { path: 'positions',component:PositionsComponent },
   { path: 'congratulation',component:CongratulationComponent },
   { path: 'commitee/home',component:CommiteeHomeComponent},
-  { path: 'commitee/addplayer', component:AddPlayerToCmtComponent}
+  { path: 'commitee/addplayer', component:AddPlayerToCmtComponent},
+  { path: ':bl',component:CongratulationComponent}
+
 ];
  
 export const AppRoutingModule = RouterModule.forRoot(routes);

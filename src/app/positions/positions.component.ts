@@ -191,7 +191,7 @@ export class PositionsComponent implements OnInit {
           // Check local storage for rosterCode             
           const rosterCode = localStorage.getItem('rosterCode');
           if (rosterCode) {
-            this._snackbar.openSuccess('Login successful');
+            this._snackbar.openSuccess('Signup successful');
             this.http.post('https://sportupapi.otobit.com/api/rosters/addPlayersByCode',Data).subscribe((res:any)=>{
             })
             this.router.navigate(['/congratulation'], { queryParams: { word: 'team' }});

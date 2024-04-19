@@ -12,6 +12,7 @@ import { snackbarService } from '../../service/snackbar.service';
 export class CommiteeHomeComponent implements OnInit {
   public data: any;
   cid: any;
+  bl:any;
 
   constructor(
     private router: Router,
@@ -24,6 +25,7 @@ export class CommiteeHomeComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       this.cid = params['cid'];
+      this.bl = params['bl'];
       // console.log(this.cid);
       if (this.cid) {
         const existingRosterCode = localStorage.getItem('rosterCode');
@@ -44,8 +46,9 @@ export class CommiteeHomeComponent implements OnInit {
             const orgname = res.data.organizationName;
             const orgid = res.data.organizationId;
             const orghandle = res.data.organizationUserHandle;
+            const bl = this.bl;
             // console.log(cmid, cmyear, orgname, orgid, orghandle);
-            this._cmservice.getdata(cmid,cmyear);
+            this._cmservice.getdata(cmid,cmyear,bl);
           });
       } else {
         console.log('Commitee id not found in the URL');
