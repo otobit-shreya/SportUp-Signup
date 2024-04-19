@@ -57,8 +57,8 @@ export class HomeComponent implements OnInit {
             }
           );
       } else {
-        // console.log('Roster code not found in the URL');
-        this._snack.openError('Roster code not found in the URL');
+        console.log('Roster code not found in the URL');
+        // this._snack.openError('Roster code not found in the URL');
         // Handle the case where roster code is not available in the URL
       }
     });
