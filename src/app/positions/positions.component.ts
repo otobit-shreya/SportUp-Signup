@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
 import { snackbarService } from '../service/snackbar.service';
 import { UserService } from '../service/user.service';
 import { commiteeService } from '../service/commitee.service';
+import { environment } from '../environments/environment.prod';
 // import {MatChipsModule} from '@angular/material/chips';
 
 interface Sport {
@@ -31,6 +32,7 @@ interface Sport {
   providers: [ ApiService],
 })
 export class PositionsComponent implements OnInit {
+  baseUrl = environment.baseUrl;
   phoneNumber: number = 0;
   fullName: string = '';
   firstName: string = '';
@@ -92,7 +94,7 @@ export class PositionsComponent implements OnInit {
   ngOnInit(): void {
     
     this.http
-      .get('https://sportupapi.otobit.com/api/GetSportNameLookups')
+      .get(`${this.baseUrl}GetSportNameLookups`)
       .subscribe(
         (res: any) => {
           // console.log(res.sport_dict, 'API response');
@@ -136,7 +138,7 @@ export class PositionsComponent implements OnInit {
       selected.forEach((sport) => {
         this.sportNameLookupIds.push(sport.id);
       });
-      const apiUrl = 'api/Player/sign-up-v2';
+      const apiUrl = 'Player/sign-up-v2';
       // const sportId = this.data.sportId;
       // console.log(sportId);
       // console.log(this.sportNameLookupIds, 'formData');
@@ -192,7 +194,7 @@ export class PositionsComponent implements OnInit {
           const rosterCode = localStorage.getItem('rosterCode');
           if (rosterCode) {
             this._snackbar.openSuccess('Signup successful');
-            this.http.post('https://sportupapi.otobit.com/api/rosters/addPlayersByCode',Data).subscribe((res:any)=>{
+            this.http.post(`${this.baseUrl}rosters/addPlayersByCode`,Data).subscribe((res:any)=>{
             })
             this.router.navigate(['/congratulation'], { queryParams: { word: 'team' }});
             return; // Exit the method after redirection
@@ -201,7 +203,7 @@ export class PositionsComponent implements OnInit {
           // Check local storage for cid
           const cid = localStorage.getItem('cid');
           if (cid) {
-            this.http.post(`https://sportupapi.otobit.com/api/Committee/addplayerToCommitteeByQR?committeeId=${this.cid}`,cmtData).subscribe((res:any)=>{})
+            this.http.post(`${this.baseUrl}Committee/addplayerToCommitteeByQR?committeeId=${this.cid}`,cmtData).subscribe((res:any)=>{})
             this.router.navigate(['/congratulation'], { queryParams: { word: 'Committee' } });
             return; // Exit the method after redirection
           }

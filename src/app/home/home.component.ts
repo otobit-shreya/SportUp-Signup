@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { CodeService } from '../service/code.service';
 import { snackbarService } from '../service/snackbar.service';
+import { environment } from '../environments/environment.prod';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +13,7 @@ import { snackbarService } from '../service/snackbar.service';
   styleUrl: './home.component.css',
 })
 export class HomeComponent implements OnInit {
+  baseUrl = environment.baseUrl
   public data: any;
   rostercode: any;
   bl: any;
@@ -40,7 +42,7 @@ export class HomeComponent implements OnInit {
         localStorage.setItem('rosterCode', this.rostercode);
         this.http
           .get(
-            `https://sportupapi.otobit.com/api/rosters/getRosterByCode/${this.rostercode}`
+            `${this.baseUrl}rosters/getRosterByCode/${this.rostercode}`
           )
           .subscribe(
             (res: any) => {

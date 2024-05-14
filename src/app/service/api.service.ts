@@ -2,10 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable, Subject, throwError } from 'rxjs';
 import { catchError, filter, shareReplay, tap } from 'rxjs/operators';
+import { environment } from '../environments/environment.prod';
 
 @Injectable()
 export class ApiService {
-  private baseApiUrl = 'https://sportupapi.otobit.com/';
+  baseUrl = environment.baseUrl
+  private baseApiUrl = this.baseUrl;
 
   constructor(private http: HttpClient) {}
 

@@ -13,6 +13,7 @@ import { ContactService } from '../service/contact.service';
 import { CommonModule } from '@angular/common';
 import { DataService } from '../service/data.service';
 import { snackbarService } from '../service/snackbar.service';
+import { environment } from '../environments/environment.prod';
 
 @Component({
   selector: 'app-main',
@@ -23,6 +24,7 @@ import { snackbarService } from '../service/snackbar.service';
   providers: [ApiService],
 })
 export class MainComponent implements OnInit {
+  baseUrl = environment.baseUrl
   myForm: FormGroup;
   phoneNumber: any = '';
   today: string;
@@ -60,7 +62,7 @@ export class MainComponent implements OnInit {
   gender() {
     this.http
       .get(
-        'https://sportupapi.otobit.com/api/CommonFixedLookup/GetByType/GenderType'
+        `${this.baseUrl}CommonFixedLookup/GetByType/GenderType`
       )
       .subscribe(
         (res: any) => {
@@ -77,7 +79,7 @@ export class MainComponent implements OnInit {
   checkUsernameAvailability() {
     const username = this.myForm.get('userHandle')?.value;
     if (username) {
-      this.http.get(`https://sportupapi.otobit.com/api/User/CheckUsernameAvailability?userhandle=${username}`)
+      this.http.get(`${this.baseUrl}User/CheckUsernameAvailability?userhandle=${username}`)
         .subscribe(
           (res: any) => {
             this.usernameAvailability = res.isAvailable;

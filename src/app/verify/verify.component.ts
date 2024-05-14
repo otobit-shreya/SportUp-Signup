@@ -26,6 +26,7 @@ import { snackbarService } from '../service/snackbar.service';
 import { CodeService } from '../service/code.service';
 import { HttpClient } from '@angular/common/http';
 import { commiteeService } from '../service/commitee.service';
+import { environment } from '../environments/environment.prod';
 @Component({
   selector: 'app-verify',
   standalone: true,
@@ -36,6 +37,7 @@ import { commiteeService } from '../service/commitee.service';
   changeDetection: ChangeDetectionStrategy.Default,
 })
 export class VerifyComponent {
+  baseUrl = environment.baseUrl;
   @ViewChild('countdown', { static: false }) countdown!: CountdownComponent;
   otpInput = '';
   profilePicture: string = '';
@@ -82,7 +84,7 @@ export class VerifyComponent {
 
   resendClicked() {
     this.countdown.restart();
-    const apiUrl = 'api/Player/sign-up/resend-otp';
+    const apiUrl = 'Player/sign-up/resend-otp';
     const phone = {
       otp: 'string',
       contactNumber: this.phoneNumber,
@@ -108,7 +110,7 @@ export class VerifyComponent {
 
     // console.log(this._cs.conatctval);
     // console.log(this._cs.sendp);
-    const apiUrl = 'api/Player/sign-up/verify-otp';
+    const apiUrl = 'Player/sign-up/verify-otp';
     const obj = {
       otp: this.sendtp,
       contactNumber: this.phoneNumber,
@@ -155,7 +157,7 @@ export class VerifyComponent {
              // Check local storage for rosterCode             
           const rosterCode = localStorage.getItem('rosterCode');
           if (rosterCode) {
-            this.http.post('https://sportupapi.otobit.com/api/rosters/addPlayersByCode',Data).subscribe((res:any)=>{
+            this.http.post(`${this.baseUrl}rosters/addPlayersByCode`,Data).subscribe((res:any)=>{
             })
             this.router.navigate(['/congratulation'], { queryParams: { word: 'team' }});
             this._snackbar.openSuccess('Login successful');
@@ -165,7 +167,7 @@ export class VerifyComponent {
           // Check local storage for cid
           const cid = localStorage.getItem('cid');
           if (cid) {
-            this.http.post(`https://sportupapi.otobit.com/api/Committee/addplayerToCommitteeByQR?committeeId=${this.cid}`,cmtData).subscribe((res:any)=>{})
+            this.http.post(`${this.baseUrl}Committee/addplayerToCommitteeByQR?committeeId=${this.cid}`,cmtData).subscribe((res:any)=>{})
             this.router.navigate(['/congratulation'], { queryParams: { word: 'Committee' } });
             this._snackbar.openSuccess('Login successful');
             return; // Exit the method after redirection

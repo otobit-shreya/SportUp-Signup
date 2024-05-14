@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
     this._cs.getDialNumber(dialCode);
 
 
-    const apiUrl = 'api/Player/sign-up/request-otp';
+    const apiUrl = 'Player/sign-up/request-otp';
 
     if (this.myForm.valid) {
       const mobileNumberControl = this.myForm.getRawValue().mobileNumber.number;

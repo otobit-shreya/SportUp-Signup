@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { snackbarService } from '../../service/snackbar.service';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment.prod';
 
 @Component({
   selector: 'app-add-player-to-cmt',
@@ -17,6 +18,7 @@ import { Router } from '@angular/router';
   styleUrl: './add-player-to-cmt.component.css'
 })
 export class AddPlayerToCmtComponent implements OnInit{
+  baseUrl = environment.baseUrl
   private detailsSubscription: Subscription;
   addPlayerForm!: FormGroup;
   data: any;
@@ -64,7 +66,7 @@ addPlayerToCommittee(): void {
   console.log(requestBody,'rrrr');
   
   this.http
-  .post(`https://sportupapi.otobit.com/api/Committee/addplayerToCommitteeByQR?committeeId=${this.cid}`,requestBody)
+  .post(`${this.baseUrl}Committee/addplayerToCommitteeByQR?committeeId=${this.cid}`,requestBody)
   .subscribe((response: any) => {
     // Handle success response
     // console.log('Player added successfully:', response);

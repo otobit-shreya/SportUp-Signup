@@ -15,6 +15,7 @@ import { ContactService } from '../service/contact.service';
 import { Subscription } from 'rxjs';
 import { UserService } from '../service/user.service';
 import { snackbarService } from '../service/snackbar.service';
+import { environment } from '../environments/environment.prod';
 @Component({
   selector: 'app-selection',
   standalone: true,
@@ -24,6 +25,7 @@ import { snackbarService } from '../service/snackbar.service';
   providers: [ApiService, ContactService],
 })
 export class SelectionComponent implements OnInit,OnDestroy {
+  baseUrl = environment.baseUrl;
   sptId:any;
   rostId:any;
   orgHandle:any;
@@ -70,7 +72,7 @@ export class SelectionComponent implements OnInit,OnDestroy {
   
 
   positionData() {
-    const apiUrl = 'https://sportupapi.otobit.com/api/SportPosition';
+    const apiUrl = `${this.baseUrl}SportPosition`;
     const id = this._cs.sid;
     const url = `${apiUrl}/${id}/positions`;
     this.http.get(url).subscribe(
@@ -93,7 +95,7 @@ export class SelectionComponent implements OnInit,OnDestroy {
   goToFinish(): void {
     // console.log(this.myForm.value);
     const formValues = this.myForm.value;
-    const apiUrl = 'https://sportupapi.otobit.com/api/rosters/addPlayersByCode';
+    const apiUrl = `${this.baseUrl}rosters/addPlayersByCode`;
     const data = {
       rostercode: this._cs.rcode,
       orgUserHandle: this._cs.orghand,

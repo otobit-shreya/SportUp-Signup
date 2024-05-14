@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 import { commiteeService } from '../../service/commitee.service';
 import { snackbarService } from '../../service/snackbar.service';
+import { environment } from '../../environments/environment.prod';
 
 @Component({
   selector: 'app-commitee-home',
@@ -10,6 +11,7 @@ import { snackbarService } from '../../service/snackbar.service';
   styleUrls: ['./commitee-home.component.css'],
 })
 export class CommiteeHomeComponent implements OnInit {
+  baseUrl = environment.baseUrl;
   public data: any;
   cid: any;
   bl:any;
@@ -36,7 +38,7 @@ export class CommiteeHomeComponent implements OnInit {
         localStorage.setItem('cid', this.cid);
         this.http
           .get(
-            `https://sportupapi.otobit.com/api/Committee/GetCommitteeById?committeeId=${this.cid}`
+            `${this.baseUrl}Committee/GetCommitteeById?committeeId=${this.cid}`
           )
           .subscribe((res: any) => {
             // console.log(res);
